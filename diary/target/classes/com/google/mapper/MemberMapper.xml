@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.mapper.MemberMapper">
+
+<resultMap type="com.google.domain.MemberVO" id="memberMap">
+<id property="memberId" column="memberId"/>
+<result property="memberId" column="memberId"/>
+<result property="memberPw" column="memberPw"/>
+<result property="nickname" column="nickname"/>
+<result property="region" column="region"/>
+<result property="birth" column="birth"/>
+<result property="regDate" column="regDate"/>
+<result property="memberName" column="memberName"/>
+<result property="email" column="email"/>
+<result property="gender" column="gender"/>
+<result property="enabled" column="enabled"/>
+<collection property="authList" resultMap="authMap"/>
+</resultMap>
+
+<resultMap type="com.google.domain.AuthVO" id="authMap">
+<result property="memberId" column="memberId"/>
+<result property="auth" column="auth"/>
+</resultMap>
+
+<select id="read" resultMap="memberMap">
+SELECT m.memberId, m.memberPw, m.nickname, m.region, m.birth, m.regDate, m.memberName, m.email, m.gender, m.enabled, ma.auth
+ FROM member m JOIN member_auth ma
+ON (m.memberId = ma.memberId)
+WHERE m.memberId = #{memberId}
+</select>
+
+<select id="insert">
+INSERT INTO member (memberId, memberPw, nickname, region, birth,  memberName, email, gender)
+VALUES (#{memberId},#{memberPw},#{nickname},#{region},#{birth},#{memberName},#{email},#{gender})
+</select>
+
+</mapper>
