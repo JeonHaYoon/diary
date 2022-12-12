@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService{
 		member.insert(vo);
 		
 		
-		auth.insert(vo.getAuthList());
+		//auth.insert(vo.getAuthList());
 		
 		
 		
