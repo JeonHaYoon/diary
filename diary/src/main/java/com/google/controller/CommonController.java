@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.log4j.Log4j;
 
+/**
+ * 로그인 컨트롤러
+ * @author kb403
+ *
+ */
 @Controller
 @Log4j
 public class CommonController {
@@ -73,6 +78,8 @@ public class CommonController {
 		log.info("Admin...");
 		return "diary/admin";
 	}
+	
+
 
 	
 }

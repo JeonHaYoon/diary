@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.mapper.JournalMapper">
+
+<insert id="insert" >
+INSERT INTO journal (journal_title, journal_content, journal_weather, journal_writer, journal_regdate)
+VALUES (#{journal_title},#{journal_content},#{journal_weather},#{journal_writer}, #{journal_regdate})
+</insert>
+
+<select id="read" resultType="com.google.domain.JournalVO">
+SELECT * FROM journal WHERE journal_pk = #{journal_pk}
+</select>
+
+</mapper>

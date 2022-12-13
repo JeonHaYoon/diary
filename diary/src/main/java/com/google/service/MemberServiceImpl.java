@@ -34,4 +34,11 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	@Override
+	public void find(MemberVO vo)  {
+		// TODO Auto-generated method stub
+		member.find(vo);
+	}
+	
+	
 }

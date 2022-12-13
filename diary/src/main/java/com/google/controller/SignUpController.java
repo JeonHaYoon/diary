@@ -12,6 +12,11 @@ import com.google.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+/**
+ * 회원가입 컨트롤러
+ * @author kb403
+ *
+ */
 @Controller
 @AllArgsConstructor
 public class SignUpController {
