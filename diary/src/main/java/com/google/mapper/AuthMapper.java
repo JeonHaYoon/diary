@@ -6,5 +6,7 @@ import com.google.domain.AuthVO;
 
 public interface AuthMapper {
 
-	public void insert(List<AuthVO> list);
+	public void insertAuth(AuthVO auth); //회원권한 부여
+	
+	
 }

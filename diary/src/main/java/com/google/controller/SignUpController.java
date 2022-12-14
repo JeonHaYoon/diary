@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.google.domain.AuthVO;
 import com.google.domain.MemberVO;
 import com.google.service.MemberService;
 
@@ -21,7 +22,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class SignUpController {
 
-	 private MemberService memberService;
+	 private MemberService service;
 	 private PasswordEncoder passwordEncoder;
 	 
 
@@ -35,7 +36,7 @@ public class SignUpController {
 	  @PostMapping("/signup")
 	  public String sign(@ModelAttribute MemberVO vo) {
 		  vo.setMemberPw(passwordEncoder.encode(vo.getMemberPw()));
-		  memberService.register(vo);
+		  service.register(vo);
 		  
 		  return "redirect:/login";
 	  

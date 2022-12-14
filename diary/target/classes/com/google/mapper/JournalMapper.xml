@@ -14,4 +14,13 @@ VALUES (#{journal_title},#{journal_content},#{journal_weather},#{journal_writer}
 SELECT * FROM journal WHERE journal_pk = #{journal_pk}
 </select>
 
+<update id="update">
+UPDATE journal SET journal_title = #{journal_title}, journal_content = #{journal_content}, journal_weather=${journal_weather} 
+WHERE journal_pk = #{journal_pk} 
+</update>
+
+<delete id="delete" >
+DELETE FROM journal WHERE journal_pk = #{journal_pk}
+</delete>
+
 </mapper>

@@ -9,4 +9,8 @@ public interface JournalService {
 	public void register(JournalVO vo);   //write
 	
 	public JournalVO read(long journal_pk); //read
+
+	public void modify(JournalVO vo);  //update
+
+	public void remove(long journal_pk);
 }

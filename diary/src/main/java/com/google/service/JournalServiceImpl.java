@@ -26,6 +26,18 @@ public class JournalServiceImpl implements JournalService {
 		//mapper.updateHit(journal_regdate);  //조회수증가
 		return mapper.read(journal_pk);
 	}
+
+	@Override
+	public void modify(JournalVO vo) {
+		mapper.update(vo);
+		
+	}
+
+	@Override
+	public void remove(long journal_pk) {
+		mapper.delete(journal_pk);
+		
+	}
 	
 
 

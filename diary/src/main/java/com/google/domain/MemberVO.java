@@ -1,12 +1,13 @@
 package com.google.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class MemberVO {
+public class MemberVO implements Serializable{
 
 	private int memberPk;
 	private String memberId;

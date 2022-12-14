@@ -3,6 +3,7 @@ package com.google.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.domain.AuthVO;
 import com.google.domain.MemberVO;
 import com.google.mapper.AuthMapper;
 import com.google.mapper.MemberMapper;
@@ -13,32 +14,36 @@ import lombok.AllArgsConstructor;
 @Service
 public class MemberServiceImpl implements MemberService{
 
-	private MemberMapper member;
-	private AuthMapper auth;
+	private MemberMapper mapper;
+	private AuthMapper authmapper;
 	
+	
+	//회원가입을 하고, 회원권한 부여  둘 중 하나라도 오류나면 실행x
 	@Transactional
 	@Override
 	public void register(MemberVO vo) {
-		member.insert(vo);
-		
-		
-		//auth.insert(vo.getAuthList());
-		
-		
-		
-		/*
-		 * Member selectedMember = memberDao.getMemberByEmail(member.getEmail()); Long
-		 * memberId = selectedMember.getId(); if(admin) {
-		 * memberRoleDao.addAdminRole(memberId); } memberRoleDao.addUserRole(memberId);
-		 */
-		
+		mapper.insert(vo);
+		AuthVO auth = new AuthVO();
+		auth.setMemberId(vo.getMemberId());
+		auth.setAuth("ROLE_USER");
+		authmapper.insertAuth(auth);
+				
 	}
 
 	@Override
-	public void find(MemberVO vo)  {
-		// TODO Auto-generated method stub
-		member.find(vo);
+	public void modify(MemberVO vo) {
+		mapper.update(vo);
+		
 	}
+
+
+	@Override
+	public MemberVO getMemberById(String memberId) {
+		
+		return mapper.read(memberId);
+	}
+
+	
 	
 	
 }

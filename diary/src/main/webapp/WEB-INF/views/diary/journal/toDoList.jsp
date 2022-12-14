@@ -15,8 +15,8 @@
 						<!-- 설명 -->
 					</small>
 				</div>
-				
-					<div class="form-group">
+					<form class="form-horizontal" action="">
+						<div class="form-group">
 									<label for="datetimepicker2">날짜 선택</label>
 									<div class='input-group date' id='datetimepicker2' data-plugin="datetimepicker">
 										<input type='text' class="form-control" />
@@ -24,9 +24,8 @@
 											<span class="glyphicon glyphicon-calendar"></span>
 										</span>
 									</div>
-					</div>
-								
-				<form class="form-horizontal" action="">
+						</div>
+					
 					<table class="table" id="crew">
 						<tr>
 							<th>#</th><th>할 일</th><th>완료여부</th><th></th>

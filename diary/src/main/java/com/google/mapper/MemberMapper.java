@@ -5,9 +5,10 @@ import com.google.domain.MemberVO;
 
 public interface MemberMapper {
 
-	public MemberVO read(String memberId);
+	public MemberVO read(String memberId);  //회원정보 가져오는 것
 	
-	public void insert(MemberVO vo);
+	public void insert(MemberVO vo);  //회원가입
 	
-	public void find(MemberVO vo);
+	public void update(MemberVO vo);  //회원정보 수정
+
 }

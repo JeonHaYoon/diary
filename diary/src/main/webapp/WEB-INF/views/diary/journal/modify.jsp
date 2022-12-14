@@ -1,14 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
  
-<title>일기 조회</title>
+ 
+<title>일기 수정</title>    
 <%@ include file="../include/header.jsp"%>
 
-<!-- APP MAIN ==========-->
 <main id="app-main" class="app-main">
   <div class="wrap">
 	<section class="app-content">
@@ -21,7 +23,7 @@
 					</div><!-- .app-action-panel -->
 
 					<div class="m-b-lg">
-						<a href="calendar.jsp" type="button" class="btn action-panel-btn btn-default btn-block">목록보기</a>
+						<a href="calendar" type="button" class="btn action-panel-btn btn-default btn-block">목록보기</a>
 					</div>
 
 					<div class="app-actions-list scrollable-container">
@@ -45,28 +47,59 @@
 
 			<div class="col-md-10">
 				<div class="panel panel-default new-message">						
-					<form method="post" id="frm" class="form-horizontal" action="" >
+					<form method="post" action="" id="frm" >
 						<div class="panel-body">
-							<div class="media-body">
+							<div class="form-group">
+								<input type="hidden" name="journal_pk" value="${journal.journal_pk }"/>
+						
+								<input type="text" class="form-control" id="journal_title" name="journal_title" value="${journal.journal_title}" required="required">
+							</div><!-- .form-group -->
+
+							<div class="form-group m-b-0">
+								<div class="row">
+								<input type="text" class="form-control" id="journal_regdate" name="journal_regdate" 
+								 value="<fmt:formatDate value="${journal.journal_regdate }" pattern="yyyy-MM-dd"/>" readonly="readonly"">
+														
+								
+									<div class="col-sm-6" id="journal_weather" >
+				
+											<label class="radio-inline">
+												<input type="radio" name="journal_weather" id="weather_sunny" value="맑음" 
+												<c:if test="${journal.journal_weather eq '맑음'}">checked="checked"</c:if>> 맑음
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="journal_weather" id="weather_windy" value="바람" 
+												<c:if test="${journal.journal_weather eq '바람'}">checked="checked"</c:if>> 바람
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="journal_weather" id="weather_cold" value="추움" 
+												<c:if test="${journal.journal_weather eq '추움'}">checked="checked"</c:if>> 추움
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="journal_weather" id="weather_rainy" value="비" 
+												<c:if test="${journal.journal_weather eq '비'}">checked="checked"</c:if>> 비
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="journal_weather" id="weather_snowy" value="눈" 
+												<c:if test="${journal.journal_weather eq '눈'}">checked="checked"</c:if>> 눈
+											</label>										
+											<label class="radio-inline">
+												<input type="radio" name=journal_weather id="weather_murky" value="흐림" 
+												<c:if test="${journal.journal_weather eq '흐림'}">checked="checked"</c:if>> 흐림
+											</label>
 									
-									<h4 class="media-heading m-t-xs">
-										<input type="hidden" name="journal_pk" value="${journal.journal_pk }"/>
-										<a href="javascript:void(0)"><c:out value="${journal.journal_title}"/></a>
-									</h4>
-									<small class="media-meta"><fmt:formatDate value="${journal.journal_regdate }" pattern="yyyy-MM-dd"/></small>
-									<small class="media-meta"><c:out value="${journal.journal_weather}"/></small>
-									<div class="stream-body m-t-xl">
-										<% pageContext.setAttribute("newLineChar", "\n"); %>
-										${fn:replace(journal.journal_content, newLineChar, '<br>') }
 									</div>
 								</div>
+							</div><!-- .form-group -->
 
+							
+							<textarea class="form-control full-wysiwyg" name=journal_content id="journal_content" rows="10"  required="required">${journal.journal_content}</textarea>
 						</div><!-- .panel-body -->
 
 						<div class="panel-footer clearfix">
 							<div class="pull-right">
 								<button type="button"  id="btn_remove" class="btn btn-default"><i class="fa fa-trash"></i></button>
-								<a href="modify?journal_pk=${journal.journal_pk }"  class="btn btn-default"><i class="fa fa-edit"></i></a>
+								<button type="submit" class="btn btn-default" id="btn_save"><i class="fa fa-save"></i></button>
 							</div>
 						</div><!-- .panel-footer -->
 					</form>
@@ -129,7 +162,5 @@ $(document).ready(function(){
 		//console.log("삭제버튼 눌림");
 	});
 });
-</script>  
- 
+</script>    
   <%@ include file="../include/footer.jsp"%>
-  

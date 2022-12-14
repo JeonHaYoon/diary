@@ -32,9 +32,16 @@ ON (m.memberId = ma.memberId)
 WHERE m.memberId = #{memberId}
 </select>
 
-<select id="insert">
+<select id="insert" >
 INSERT INTO member (memberId, memberPw, nickname, region, birth,  memberName, email, gender)
 VALUES (#{memberId},#{memberPw},#{nickname},#{region},#{birth},#{memberName},#{email},#{gender})
 </select>
+
+
+
+<update id="update">
+UPDATE member SET nickname = #{nickname}, email = #{email}, region = #{region} 
+WHERE memberId = #{memberId} 
+</update>
 
 </mapper>

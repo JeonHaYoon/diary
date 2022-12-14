@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 	<meta name="description" content="Admin, Dashboard, Bootstrap" />
 	<link rel="shortcut icon" sizes="196x196" href="/diary/resources/assets/images/logo.png">
-	<title>프로필</title>
+	<title>프로필 수정</title>
 	
 	<link rel="stylesheet" href="/diary/resources/libs/bower/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/diary/resources/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
@@ -197,33 +197,32 @@
 	<div class="profile-cover">
 		<div class="cover-user m-b-lg">
 			
-			<div>
-				<div class="avatar avatar-xl avatar-circle">
-					<a href="javascript:void(0)">
-						<img class="img-responsive" src="/diary/resources/images/dog.jpg" alt="avatar"/>
-					</a>
-				</div><!-- .avatar -->
-				
+			<form action="" method="post">
+			
 				<div class="text-center">
+					<div class="avatar avatar-xl avatar-circle">
+						<a href="javascript:void(0)">
+							<img class="img-responsive" src="/diary/resources/images/dog.jpg" alt="avatar"/>
+						</a>
+					</div><!-- .avatar -->
 	
-				<h4 class="profile-info-name m-b-lg">
-					<p>${member.nickname }</p>
-				</h4>
-			<div>
-				<h5>${member.memberId}</h5>
-				<h5>${member.birth}</h5>
-				<h5>${member.email}</h5>
-				<h5>${member.region}</h5>
-		
-			</div>
-		</div>
-			</div>
+					<h4 class="profile-info-name m-b-lg">
+						<input type="text" id="nickname" name="nickname" value="${member.nickname}">
+					</h4>
+					<div>
+						<h5><input id="memberId" name="memberId" type="hidden" value="${member.memberId}"></h5>
+						<h5>${member.memberId}</h5>
+						<h5><p>${member.birth}</p></h5>
+						<h5><input id="email" name="email" type="text" value="${member.email}"></h5>
+						<h5><input  id="region" name="region" type="text" value="${member.region}"></h5>
+					</div>
+					<button type="submit" id="btn_edit" class="btn btn-success btn-sm">변경</button>
+				</div>
+				
+				
 			
+			</form>
 			
-			
-			<div>
-				<a href="profileEdit"><span class="cover-icon"><i class="fa fa-edit"></i></span></a>
-			</div>
 			
 			
 		</div>
@@ -253,11 +252,6 @@
 </main>
 <!--========== END app main -->
 
-
-
-	
-
-
 	<!-- build:js /diary/resources/assets/js/core.min.js -->
 	<script src="/diary/resources/libs/bower/jquery/dist/jquery.js"></script>
 	<script src="/diary/resources/libs/bower/jquery-ui/jquery-ui.min.js"></script>
@@ -277,7 +271,22 @@
 	<script src="/diary/resources/libs/bower/fullcalendar/dist/fullcalendar.min.js"></script>
 	<script src="/diary/resources/assets/js/fullcalendar.js"></script>
 	
+	 <script type="text/javascript">
+      $(document).ready(function () {
+        $('#btn_edit').click(function () {
+          
+          var nickname = $('#nickname').val();
+          var email = $('#email').val();
+          var region = $('#region').val();
+			
+          if(nickname == ''){
+        	  nickname='공백';
+          }
+          console.log(nickname);
+        });
 
+      });
+    </script>
 	
 	
 </body>

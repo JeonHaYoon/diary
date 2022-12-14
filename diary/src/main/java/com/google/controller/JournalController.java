@@ -42,15 +42,16 @@ public class JournalController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/write")
-	public String write(JournalVO journal, RedirectAttributes rttr) {
-		log.info(journal);
-		service.register(journal);
+	public String write(JournalVO vo, RedirectAttributes rttr) {
+		log.info(vo);
+		service.register(vo);
 		
 		// journal/list로 이동하면서 result값( 글번호)을 전달함
-		rttr.addFlashAttribute("result", journal.getJournal_pk());
+		rttr.addFlashAttribute("result", vo.getJournal_pk());
 		return "redirect:/journal/write";
 	}
 
+	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/read")
 	public String read(@RequestParam("journal_pk") long journal_pk, Model model) {
@@ -59,6 +60,36 @@ public class JournalController {
 		return "/diary/journal/read";
 		
 	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/modify")
+	public String modify(@RequestParam("journal_pk") long journal_pk, Model model) {
+		
+		model.addAttribute("journal", service.read(journal_pk));
+		return "/diary/journal/modify";
+		
+	}
+	
+	
+	 @PostMapping("/modify")
+	 public String modify(JournalVO vo, RedirectAttributes rttr) {
+	 
+	 service.modify(vo);
+	 
+	 // news/list로 이동하면서 result값(등록한 글번호)을 전달함 
+	 rttr.addFlashAttribute("result", vo.getJournal_pk());
+	 return "redirect:/journal/read"; }
+	 
+	@PostMapping("/remove")
+	public String remove(@RequestParam("journal_pk") long journal_pk, Model model) {
+		
+	service.remove(journal_pk);
+	
+	return "redirect:/journal/calendar";
+	}
+		
+	
+	
 	
 	
 	@GetMapping("/calendar")

@@ -16,7 +16,7 @@
 					</div><!-- .app-action-panel -->
 
 					<div class="m-b-lg">
-						<a href="calendar.jsp" type="button" class="btn action-panel-btn btn-default btn-block">목록보기</a>
+						<a href="calendar" type="button" class="btn action-panel-btn btn-default btn-block">목록보기</a>
 					</div>
 
 					<div class="app-actions-list scrollable-container">
