@@ -2,6 +2,7 @@ package com.google.service;
 
 import java.util.Date;
 
+import com.google.controller.Criteria;
 import com.google.domain.JournalVO;
 
 public interface JournalService {
@@ -13,4 +14,8 @@ public interface JournalService {
 	public void modify(JournalVO vo);  //update
 
 	public void remove(long journal_pk);
+
+	public Object getList(Criteria ncri);
+
+	public int getListTotal();
 }

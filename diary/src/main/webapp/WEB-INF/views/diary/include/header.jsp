@@ -10,6 +10,7 @@
 	<link rel="shortcut icon" sizes="196x196" href="/diary/resources/assets/images/logo.png">
 	
 	
+	
 	<link rel="stylesheet" href="/diary/resources/libs/bower/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/diary/resources/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
 	<!-- build:css /diary/resources/assets/css/app.min.css -->
@@ -19,12 +20,16 @@
 	<link rel="stylesheet" href="/diary/resources/assets/css/bootstrap.css">
 	<link rel="stylesheet" href="/diary/resources/assets/css/core.css">
 	<link rel="stylesheet" href="/diary/resources/assets/css/app.css">
+	
 	<!-- endbuild -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
 	<script src="/diary/resources/libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
 	<script>
 		Breakpoints();
 	</script>
+	
+    
+
 </head>
 	
 <body class="menubar-top menubar-light theme-primary">
@@ -80,7 +85,7 @@
     <div class="media">
       <div class="media-left">
         <div class="avatar avatar-md avatar-circle">
-          <a href="javascript:void(0)"><img class="img-responsive" src="/diary/resources/assets/images/221.jpg" alt="avatar"/></a>
+          <a href="javascript:void(0)"><img class="img-responsive" src="/diary/resources/images/dog.jpg" alt="avatar"/></a>
         </div><!-- .avatar -->
       </div>
       <div class="media-body">
@@ -139,7 +144,7 @@
         <li class="menu-separator"><hr></li>
 
         <li>
-          <a href="../journal/todolist">
+          <a href="../todo/todolist">
             <i class="menu-icon zmdi zmdi-file-text zmdi-hc-lg"></i>
             <span class="menu-text">해야할 일</span>
           </a>

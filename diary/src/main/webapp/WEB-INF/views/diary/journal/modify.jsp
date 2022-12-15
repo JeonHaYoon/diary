@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
  
@@ -51,14 +51,14 @@
 						<div class="panel-body">
 							<div class="form-group">
 								<input type="hidden" name="journal_pk" value="${journal.journal_pk }"/>
-						
+									<input type="hidden" class="form-control input-sm" id="journal_writer" readonly="readonly" name="journal_writer" 	value="<sec:authentication property="principal.username"/>">
 								<input type="text" class="form-control" id="journal_title" name="journal_title" value="${journal.journal_title}" required="required">
 							</div><!-- .form-group -->
 
 							<div class="form-group m-b-0">
 								<div class="row">
-								<input type="text" class="form-control" id="journal_regdate" name="journal_regdate" 
-								 value="<fmt:formatDate value="${journal.journal_regdate }" pattern="yyyy-MM-dd"/>" readonly="readonly"">
+							<input type="text" class="form-control" id="journal_regdate" name="" 
+								 value="<fmt:formatDate value="${journal.journal_regdate }" pattern="yyyy-MM-dd"/>" readonly="readonly"> 
 														
 								
 									<div class="col-sm-6" id="journal_weather" >

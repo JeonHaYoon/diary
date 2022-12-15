@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <title>일기 쓰기</title>    
 <%@ include file="../include/header.jsp"%>
 
@@ -43,9 +43,10 @@
 					<form id="frm" method="post" action="" >
 						<div class="panel-body">
 							<div class="form-group">
+								<input type="text" class="form-control input-sm" id="journal_writer" readonly="readonly" name="journal_writer" 	value="<sec:authentication property="principal.username"/>">
 								<input type="text" class="form-control" id="journal_title" name="journal_title" placeholder="일기 제목" required="required">
 							</div><!-- .form-group -->
-
+								
 							<div class="form-group m-b-0">
 								<div class="row">
 									<div class="col-sm-6">
@@ -59,7 +60,7 @@
 										</div>
 									</div>
 									<div class="col-sm-6" id="journal_weather" >
-				
+										
 											<label class="radio-inline">
 												<input type="radio" name="journal_weather" id="weather_sunny" value="맑음"> 맑음
 											</label>

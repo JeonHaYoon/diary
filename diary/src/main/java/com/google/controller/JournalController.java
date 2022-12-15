@@ -43,7 +43,7 @@ public class JournalController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/write")
 	public String write(JournalVO vo, RedirectAttributes rttr) {
-		log.info(vo);
+		//log.info(vo);
 		service.register(vo);
 		
 		// journal/list로 이동하면서 result값( 글번호)을 전달함
@@ -69,26 +69,39 @@ public class JournalController {
 		return "/diary/journal/modify";
 		
 	}
-	
-	
+
+	@PreAuthorize("isAuthenticated()")
+	 //@PreAuthorize("principal.username == #vo.journal_writer")
 	 @PostMapping("/modify")
-	 public String modify(JournalVO vo, RedirectAttributes rttr) {
+	 public String modify(JournalVO vo) {
 	 
+		 System.out.println(vo);
+		 log.info(vo);
 	 service.modify(vo);
 	 
-	 // news/list로 이동하면서 result값(등록한 글번호)을 전달함 
-	 rttr.addFlashAttribute("result", vo.getJournal_pk());
-	 return "redirect:/journal/read"; }
+	 return "redirect:/journal/read?journal_pk=" + vo.getJournal_pk(); 
+	 }
 	 
+	//@PreAuthorize("principal.username == #vo.journal_writer")
 	@PostMapping("/remove")
-	public String remove(@RequestParam("journal_pk") long journal_pk, Model model) {
+	public String remove(@RequestParam("journal_pk") long journal_pk, Model model, JournalVO vo) {
 		
 	service.remove(journal_pk);
 	
-	return "redirect:/journal/calendar";
+	return "redirect:/journal/readAll";
 	}
 		
-	
+	/**
+	 * 목록을 나타내주는 메서드
+	 */
+	@GetMapping("/readAll")
+	public String readAll(Model model, Criteria cri) {
+		model.addAttribute("readAll", service.getList(cri));
+		int total=service.getListTotal();
+		model.addAttribute("pageMaker", new PageDTO(total, cri));
+		
+		return "/diary/journal/readAll";
+	}
 	
 	
 	
@@ -99,11 +112,7 @@ public class JournalController {
 	}
 	
 
-	@GetMapping("/todolist")
-	public String toDoList() {
-		
-		return "/diary/journal/toDoList";
-	}
+	
 	
 	
 }

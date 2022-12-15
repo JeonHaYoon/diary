@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import com.google.controller.Criteria;
 import com.google.domain.JournalVO;
 import com.google.mapper.JournalMapper;
 
@@ -37,6 +38,17 @@ public class JournalServiceImpl implements JournalService {
 	public void remove(long journal_pk) {
 		mapper.delete(journal_pk);
 		
+	}
+
+	@Override
+	public Object getList(Criteria cri) {
+		return mapper.getListWithPaging(cri);
+	}
+
+	@Override
+	public int getListTotal() {
+		// TODO Auto-generated method stub
+		return mapper.getListTotal();
 	}
 	
 

@@ -1,61 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp"%>    
- <title>달력</title>
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-     
-    <style>
-* {
-    margin: auto;
-    padding: auto;
-}
 
-.custom_calendar_table td {
-    text-align: center;
-}
-
-.custom_calendar_table thead.cal_date th {
-    font-size: 1.5rem;
-}
-
-.custom_calendar_table thead.cal_date th button {
-    font-size: 1.5rem;
-    background: none;
-    border: none;
-}
-
-.custom_calendar_table thead.cal_week th {
-    background-color: #288CFF;
-    color: #fff;
-}
-
-.custom_calendar_table tbody td {
-    cursor: pointer;
-}
-
-.custom_calendar_table tbody td:nth-child(1) {
-    color: red;
-}
-
-.custom_calendar_table tbody td:nth-child(7) {
-    color: #288CFF;
-}
-
-.custom_calendar_table tbody td.select_day {
-    background-color: #288CFF;
-    color: #fff;
-}
-</style>
-
-
-<body>
-    <div id="calendarForm"></div>
-    
-    <button>오늘</button>
-</body>
-
-<script>
 
 (function () {
     calendarMaker($("#calendarForm"), new Date());
@@ -115,7 +58,7 @@ function calendarMaker(target, date) {
             "</colgroup>" +
             "<thead class='cal_date'>" +
             "<th><button type='button' class='prev'><</button></th>" +
-            "<th colspan='5'><p><span>" + year + "</span>년 <span><th colspan='5'>" + month + "</span>월</p></th>" +
+            "<th colspan='5'><p><span>" + year + "</span>년 <span>" + month + "</span>월</p></th>" +
             "<th><button type='button' class='next'>></button></th>" +
             "</thead>" +
             "<thead  class='cal_week'>" +
@@ -142,14 +85,6 @@ function calendarMaker(target, date) {
         $(".custom_calendar_table").on("click", "td", function () {
             $(".custom_calendar_table .select_day").removeClass("select_day");
             $(this).removeClass("select_day").addClass("select_day");
-            console.log($(this).text());
-            console.log(nowDate.getFullYear());
-            console.log(nowDate.getMonth()+1);
-
-            
         });
     }
 }
-</script>
-
-    <%@ include file="../include/footer.jsp"%>

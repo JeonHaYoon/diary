@@ -40,5 +40,9 @@
 	<script src="/diary/resources/libs/bower/moment/moment.js"></script>
 	<script src="/diary/resources/libs/bower/fullcalendar/dist/fullcalendar.min.js"></script>
 	<script src="/diary/resources/assets/js/fullcalendar.js"></script>
+	
+	 
+
+  
 </body>
 </html>

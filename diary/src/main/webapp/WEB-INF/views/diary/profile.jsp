@@ -60,7 +60,7 @@
       <span class="zmdi zmdi-hc-lg zmdi-search"></span>
     </button>
 
-    <a href="/diary/resources/index.html" class="navbar-brand">
+    <a href="main" class="navbar-brand">
       <span class="brand-icon"><i class="fa fa-gg"></i></span>
       <span class="brand-name">Infinity</span>
     </a>
@@ -104,7 +104,7 @@
               </a>
               <ul class="dropdown-menu animated flipInY">
                 <li>
-                  <a class="text-color" href="/index.html">
+                  <a class="text-color" href="main">
                     <span class="m-r-xs"><i class="fa fa-home"></i></span>
                     <span>Home</span>
                   </a>
@@ -117,7 +117,7 @@
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a class="text-color" href="logout.html">
+                  <a class="text-color" href="logout">
                     <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
                     <span>Logout</span>
                   </a>
@@ -149,7 +149,7 @@
         <li class="menu-separator"><hr></li>
 
         <li>
-          <a href="journal/todolist">
+          <a href="todo/todolist">
             <i class="menu-icon zmdi zmdi-file-text zmdi-hc-lg"></i>
             <span class="menu-text">해야할 일</span>
           </a>

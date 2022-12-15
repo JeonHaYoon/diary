@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <insert id="insert" >
 INSERT INTO journal (journal_title, journal_content, journal_weather, journal_writer, journal_regdate)
-VALUES (#{journal_title},#{journal_content},#{journal_weather},#{journal_writer}, #{journal_regdate})
+VALUES (#{journal_title},#{journal_content},#{journal_weather},#{journal_writer},#{journal_regdate})
 </insert>
 
 <select id="read" resultType="com.google.domain.JournalVO">
@@ -15,12 +15,31 @@ SELECT * FROM journal WHERE journal_pk = #{journal_pk}
 </select>
 
 <update id="update">
-UPDATE journal SET journal_title = #{journal_title}, journal_content = #{journal_content}, journal_weather=${journal_weather} 
+UPDATE journal SET journal_title = #{journal_title}, journal_content = #{journal_content}, journal_weather=#{journal_weather}
 WHERE journal_pk = #{journal_pk} 
 </update>
 
 <delete id="delete" >
 DELETE FROM journal WHERE journal_pk = #{journal_pk}
 </delete>
+
+<select id="getList" resultType="com.google.domain.JournalVO">
+<![CDATA[
+SELECT * FROM journal WHERE journal_pk > 0 ORDER BY journal_pk DESC
+]]>
+</select>
+
+<select id="getListWithPaging" resultType="com.google.domain.JournalVO">
+<![CDATA[
+SELECT * FROM journal WHERE journal_pk > 0 ORDER BY journal_pk DESC
+LIMIT #{skip}, #{amount} 
+]]>
+</select>
+
+<select id="getListTotal" resultType="int">
+<![CDATA[
+SELECT count(*) FROM journal WHERE journal_pk > 0 
+]]>
+</select>
 
 </mapper>
