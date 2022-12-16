@@ -5,15 +5,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.google.mapper.TodoMapper">
 
+
 <insert id="insert" >
 INSERT INTO todolist (todo_content, todo_deadline, todo_importance)
 VALUES (#{todo_content},#{todo_deadline},#{todo_importance})
 </insert>
 
-<!-- <select id="read" resultType="com.google.domain.TodoVO">
-SELECT * FROM journal WHERE journal_pk = #{journal_pk}
+<!-- 모든값 가져오는 것, 어떤 값에 의해 가져오려면 WHERE절 가져오면된다. -->
+<select id="read" resultType="com.google.domain.TodoVO">
+SELECT * FROM todolist
 </select>
 
+<!-- 
 <update id="update">
 UPDATE journal SET journal_title = #{journal_title}, journal_content = #{journal_content}, journal_weather=#{journal_weather}
 WHERE journal_pk = #{journal_pk} 

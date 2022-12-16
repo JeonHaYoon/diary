@@ -22,7 +22,7 @@
 					
 					<div class="m-b-lg">
 						<a href="write"  class="btn btn-lg btn-primary btn-block">일기쓰기</a>
-						<a href="todolist"  class="btn btn-lg btn-primary btn-block">투두리스트 작성</a>
+						<a href="../todo/todolist"  class="btn btn-lg btn-primary btn-block">투두리스트 작성</a>
 					</div>
 		
 				</div><!-- .app-action-panel -->

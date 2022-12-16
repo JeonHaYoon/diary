@@ -28,6 +28,7 @@
 		Breakpoints();
 	</script>
 	
+	
     
 
 </head>
@@ -151,7 +152,7 @@
         </li>
 
         <li>
-          <a href="../select/selectOne">
+          <a href="../select/selectWrite">
             <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
             <span class="menu-text">A OR B</span>
           </a>

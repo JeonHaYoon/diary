@@ -1,7 +1,12 @@
 package com.google.service;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.google.controller.Criteria;
+import com.google.domain.TodoPageDTO;
 import com.google.domain.TodoVO;
 import com.google.mapper.TodoMapper;
 
@@ -18,5 +23,13 @@ public class TodoServiceImpl implements TodoService{
 		mapper.insert(vo);
 		
 	}
+
+
+	@Override
+	public List<TodoVO> read() {
+		return mapper.read();
+	}
+
+	
 
 }
