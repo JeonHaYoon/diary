@@ -156,7 +156,7 @@
         </li>
 
         <li>
-          <a href="select/selectWrite">
+          <a href="select/selectList">
             <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
             <span class="menu-text">A OR B</span>
           </a>

@@ -11,6 +11,41 @@ INSERT INTO selectone (select_title, select_category, select_content, select_ite
 VALUES (#{select_title},#{select_category},#{select_content},#{select_itemA},#{select_itemB} )
 </insert>
 
+<select id="read" resultType="com.google.domain.SelectOneVO">
+SELECT * FROM selectone WHERE select_pk = #{select_pk}
+</select>
 
+<select id="getList" resultType="com.google.domain.SelectOneVO">
+<![CDATA[
+SELECT * FROM selectone WHERE select_pk > 0 ORDER BY select_pk DESC
+]]>
+</select>
+
+<select id="getListWithPaging" resultType="com.google.domain.SelectOneVO">
+<![CDATA[
+SELECT * FROM selectone WHERE select_pk > 0 ORDER BY select_pk DESC
+LIMIT #{skip}, #{amount} 
+]]>
+</select>
+
+<select id="getListTotal" resultType="int">
+<![CDATA[
+SELECT count(*) FROM selectone WHERE select_pk > 0 
+]]>
+</select>
+
+<update id="updateHit">
+UPDATE selectone SET select_hit = select_hit + 1
+WHERE select_pk = #{select_pk} 
+</update>
+
+<update id="update">
+UPDATE selectone SET select_title = #{select_title}, select_category=#{select_category}, select_content = #{select_content}, select_itemA=#{select_itemA}, select_itemB=#{select_itemB}
+WHERE select_pk = #{select_pk} 
+</update>
+
+<delete id="delete" >
+DELETE FROM selectone WHERE select_pk = #{select_pk}
+</delete>
 
 </mapper>

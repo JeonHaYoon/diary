@@ -113,7 +113,7 @@
                 </li>               
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a class="text-color" href="logout">
+                  <a class="text-color" href="../logout">
                     <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
                     <span>Logout</span>
                   </a>
@@ -152,7 +152,7 @@
         </li>
 
         <li>
-          <a href="../select/selectWrite">
+          <a href="../select/selectList">
             <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
             <span class="menu-text">A OR B</span>
           </a>
