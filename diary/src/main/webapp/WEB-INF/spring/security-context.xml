@@ -4,7 +4,6 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
 	
 <bean id="customAccessDenied" class="com.google.security.CustomAccessDeniedHandler"></bean>
 <!-- <bean id="customLoginSuccess" class="com.google.security.CustomLoginSuccessHandler"></bean> --> 
@@ -23,7 +22,7 @@
 	<!-- <security:access-denied-handler error-page="/accessError"/> -->
 	<security:access-denied-handler ref="customAccessDenied"/>
 	
-	 <security:csrf disabled="true"/> 
+	<!--  <security:csrf disabled="true"/>  -->
 	
 	<security:logout logout-url="/logout" invalidate-session="true" delete-cookies="remember-me, JSESSIONID"/>
 	

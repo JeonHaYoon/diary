@@ -10,6 +10,8 @@ public interface TodoMapper {
 	public void insert(TodoVO vo);
 
 	public List<TodoVO> read();
+
+	public int update(TodoVO vo);
 	
 	
 	

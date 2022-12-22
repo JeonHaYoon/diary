@@ -21,6 +21,17 @@
 	<link rel="stylesheet" href="/diary/resources/assets/css/core.css">
 	<link rel="stylesheet" href="/diary/resources/assets/css/app.css">
 	
+	
+	<!-- build:js /admin/resources/assets/js/core.min.js -->
+	<script src="/admin/resources/libs/bower/jquery/dist/jquery.js"></script>
+	<script src="/admin/resources/libs/bower/jquery-ui/jquery-ui.min.js"></script>
+	<script src="/admin/resources/libs/bower/jQuery-Storage-API/jquery.storageapi.min.js"></script>
+	<script src="/admin/resources/libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+	<script src="/admin/resources/libs/bower/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<script src="/admin/resources/libs/bower/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+	<script src="/admin/resources/libs/bower/PACE/pace.min.js"></script>
+	<!-- endbuild -->
+	
 	<!-- endbuild -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
 	<script src="/diary/resources/libs/bower/breakpoints.js/dist/breakpoints.min.js"></script>
@@ -58,7 +69,7 @@
 
     <a href="../main" class="navbar-brand">
       <span class="brand-icon"><i class="fa fa-gg"></i></span>
-      <span class="brand-name">Infinity</span>
+      <span class="brand-name">JPage</span>
     </a>
   </div><!-- .navbar-header -->
   

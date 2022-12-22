@@ -13,15 +13,15 @@ VALUES (#{todo_content},#{todo_deadline},#{todo_importance})
 
 <!-- 모든값 가져오는 것, 어떤 값에 의해 가져오려면 WHERE절 가져오면된다. -->
 <select id="read" resultType="com.google.domain.TodoVO">
-SELECT * FROM todolist
+SELECT * FROM todolist ORDER BY todo_pk DESC
 </select>
 
-<!-- 
+ 
 <update id="update">
-UPDATE journal SET journal_title = #{journal_title}, journal_content = #{journal_content}, journal_weather=#{journal_weather}
-WHERE journal_pk = #{journal_pk} 
+UPDATE todolist SET todo_ok = #{todo_ok}
+WHERE todo_pk = #{todo_pk} 
 </update>
-
+<!--
 <delete id="delete" >
 DELETE FROM journal WHERE journal_pk = #{journal_pk}
 </delete>

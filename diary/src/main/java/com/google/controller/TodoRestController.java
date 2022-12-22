@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,47 +32,31 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping("/todo/*")
-public class TodoController {
+public class TodoRestController {
 	
 	private TodoService service;
-	
-	/**
-	 * 작성된 할 일 조회 및 조회
-	 * @param model
-	 * @param vo
-	 * @return
-	 */
-	
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/todolist")
-	public String register(Model model, TodoVO vo) {
-		//model.addAttribute("vo", vo);
-		model.addAttribute("todoList", service.read());
-		
-		
-		return"/diary/todo/todolist";
 
-	}
-	
 
 	/**
-	 * 할 일 등록
+	 * 댓글 수정
+	 * PUT메소드, rno값은 주소 뒤에 넣어준다
+	 * http://localhost/admin/replies/10
+	 * {"bno":3,  "reply":"수업중", "replyer":"user00"}
 	 * @param vo
+	 * @param rno
 	 * @return
 	 */
-	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/todolist")
-	public String register(TodoVO vo) {
-		//log.info(vo);
-		service.register(vo);
 		
-		return "redirect:/todo/todolist";
-	}
-	
-
-	
-	
+	@RequestMapping(value = "/todolist/{todo_pk}", method = RequestMethod.POST)
+    public ResponseEntity<String> modify(@RequestBody TodoVO vo, @PathVariable("todo_pk") int todo_pk){
+        
+		vo.setTodo_pk(todo_pk);
+        
+        return service.update(vo) == 1 
+        ? new ResponseEntity<>("success", HttpStatus.OK) 
+        : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
