@@ -66,7 +66,7 @@
 												<button type="button" id="btn_done${idx }<%//=idx %>" data-todo_pk="${todoList.todo_pk }" class="btn mw-md btn-dark btn-sm" onclick="todo(this)">완료</button></td>
 											</c:if> 	
 											<c:if test="${todoList.todo_ok eq 'none'}"> 
-												<button type="button" id="btn_none${idx }<%//=idx %>" data-todo_pk="${todoList.todo_pk }" class="btn mw-md btn-default btn-sm" onclick="todono(this)">미완료</button></td>
+												<button type="button" id="btn_none${idx }<%//=idx %>" data-todo_pk="${todoList.todo_pk }" class="btn mw-md btn-default btn-sm" onclick="todo(this)">미완료</button></td>
 											</c:if> 
 										</td>
 									
@@ -131,65 +131,60 @@ function todo(t){
 	//btn_value='none';
 	//alert($(t).val());
 	let todo_pk = $(t).data("todo_pk");
+	if (t.innerText == "완료"){
+		$.ajax({
+	        type : "POST",            // HTTP method type(GET, POST,,,,,) 형식이다.
+	        url : "/diary/todo/todolist/"+todo_pk,      // 컨트롤러에서 대기중인 URL 주소이다.
+	        //dataType: "text",
+	        data : JSON.stringify({todo_pk:todo_pk,
+	        	todo_ok:"none"}),
+	        
+	        	
+	        	// Json 형식의 데이터이다.
+	        contentType: 'application/json',
+	        beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},		//csrf post방식에 붙여둘것
+	        	success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+	        	t.innerText="미완료";
+	        	$(t).removeClass("btn-dark");
+	        	$(t).addClass("btn-default");
+	        	console.log($(t).data("todo_pk"));
+	        },
+	        error : function(request, status, error){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+	        	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        	console.log("통신 실패.")
+	        }
+	    });
+	}else{
+		$.ajax({
+	        type : "POST",            // HTTP method type(GET, POST,,,,,) 형식이다.
+	        url : "/diary/todo/todolist/"+todo_pk,      // 컨트롤러에서 대기중인 URL 주소이다.
+	        //dataType: "text",
+	        data : JSON.stringify({todo_pk:todo_pk,
+	        	todo_ok:"done"}),
+	        
+	        	
+	        	// Json 형식의 데이터이다.
+	        contentType: 'application/json',
+	        beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},		//csrf post방식에 붙여둘것
+	        	success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+	        	t.innerText="완료";
+	        	$(t).removeClass("btn-default");
+	        	$(t).addClass("btn-dark");
+	        	console.log($(t).data("todo_pk"));
+	        },
+	        error : function(request, status, error){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+	        	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        	console.log("통신 실패.")
+	        }
+	    });
+	}
 	
-	$.ajax({
-        type : "POST",            // HTTP method type(GET, POST,,,,,) 형식이다.
-        url : "/diary/todo/todolist/"+todo_pk,      // 컨트롤러에서 대기중인 URL 주소이다.
-        //dataType: "text",
-        data : JSON.stringify({todo_pk:todo_pk,
-        	todo_ok:"none"}),
-        
-        	
-        	// Json 형식의 데이터이다.
-        contentType: 'application/json',
-        beforeSend: function(xhr){
-			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-		},		//csrf post방식에 붙여둘것
-        	success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-        	t.innerText="미완료";
-        	$(t).removeClass("btn-dark");
-        	$(t).addClass("btn-default");
-        	console.log($(t).data("todo_pk"));
-        },
-        error : function(request, status, error){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-        	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        	console.log("통신 실패.")
-        }
-    });
 }
 
-function todono(t){
-//alert("완료되었습니다.");
-	
-	//btn_value='none';
-	//alert($(t).val());
-	let todo_pk = $(t).data("todo_pk");
-	
-	$.ajax({
-        type : "POST",            // HTTP method type(GET, POST,,,,,) 형식이다.
-        url : "/diary/todo/todolist/"+todo_pk,      // 컨트롤러에서 대기중인 URL 주소이다.
-        //dataType: "text",
-        data : JSON.stringify({todo_pk:todo_pk,
-        	todo_ok:"done"}),
-        
-        	
-        	// Json 형식의 데이터이다.
-        contentType: 'application/json',
-        beforeSend: function(xhr){
-			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-		},		//csrf post방식에 붙여둘것
-        	success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-        	t.innerText="완료";
-        	$(t).removeClass("btn-default");
-        	$(t).addClass("btn-dark");
-        	console.log($(t).data("todo_pk"));
-        },
-        error : function(request, status, error){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-        	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        	console.log("통신 실패.")
-        }
-    });
-}
 </script>
 
   
