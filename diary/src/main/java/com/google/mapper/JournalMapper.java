@@ -3,7 +3,7 @@ package com.google.mapper;
 import java.util.Date;
 import java.util.List;
 
-import com.google.controller.Criteria;
+import com.google.domain.Criteria;
 import com.google.domain.JournalVO;
 
 public interface JournalMapper {

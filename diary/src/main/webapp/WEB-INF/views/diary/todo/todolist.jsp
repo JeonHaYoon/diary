@@ -27,9 +27,7 @@
 								<tr>
 									<!-- <th>등록일></th><td><input type="date" name="todo_regdate" id="todo_regdate0" class="form-control" readonly="readonly"></td> -->
 									<td><input type="text" name="todo_content" id="todo_content" class="form-control" required="required"></td>
-									<td><input type="text" name="todo_importance" id="todo_importance" class="form-control"></td>
-									<td><button type="button" id="" class="btn btn-default" onclick="addItem(this)">+</button>
-									<button type="button" id="" class="btn btn-default" onclick="delItem(this)">-</button></td>
+									<td><input type="text" name="todo_importance" id="todo_importance" class="form-control"></td>									
 								</tr>
 							</table>
 								<button type="submit" class="btn btn-primary">등록</button>
@@ -84,40 +82,6 @@
 </div>
 
 <script>
-function delItem(t){
-	let len = $('#crew tr').length;
-	if(len > 2){
-		$(t).parent().parent().remove();
-		let html = "";
-		html += '<button type="button" id="" class="btn btn-default" onclick="addItem(this)">+</button>';
-		html += '<button type="button" id="" class="btn btn-default" onclick="delItem(this)">-</button>';
-		//console.log(len);
-		$("#crew > tbody > tr:nth-child("+(len-1)+") > td:nth-child(4)").append(html);
-	}
-}
-function addItem(t){
-	
-	//자신삭제
-	$(t).parent().empty();
-	
-	let len = $('#crew tr').length;
-	console.log(len);
-	
-	let html = "";
-	html += '<tr>';
-	//html += '<td><input type="date" name="todo_regdate" id="todo_regdate'+len+'" class="form-control"></td>';
-	html += '<td><input type="text" name="todo_content" id="todo_content'+len+'" class="form-control"></td>';
-	html += '<td><input type="text" name="todo_importance" id="todo_importance'+len+'" class="form-control"></td>';
-	html += '<td><button type="button" id="" class="btn btn-default" onclick="addItem(this)">+</button>';
-	html += '<button type="button" id="" class="btn btn-default" onclick="delItem(this)">-</button></td>';
-	html += '</tr>';
-	
-	console.log("addItem"+html);
-	
-	$('#crew:last').append(html);
-}
-
-
 
 //csrf post방식에 붙여둘것
 

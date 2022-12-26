@@ -26,7 +26,7 @@
 		<div class="simple-page-logo animated swing">
 			<a href="main.jsp">
 				<span><i class="fa fa-gg"></i></span>
-				<span>Diary</span>
+				<span>JPage</span>
 			</a>
 		</div><!-- logo -->
 		<div class="simple-page-form animated flipInY" id="login-form">

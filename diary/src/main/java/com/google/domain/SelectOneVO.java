@@ -21,6 +21,6 @@ public class SelectOneVO {
 	
 	private int select_replyCnt; //댓글수
 	
-	//private List<BoardAttachVO> attachList;
+	private List<SelectOneAttachDTO> attachList;
 	
 }

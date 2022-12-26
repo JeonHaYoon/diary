@@ -2,7 +2,7 @@ package com.google.service;
 
 import java.util.Date;
 
-import com.google.controller.Criteria;
+import com.google.domain.Criteria;
 import com.google.domain.JournalVO;
 
 public interface JournalService {

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
-import com.google.controller.Criteria;
+import com.google.domain.Criteria;
 import com.google.domain.JournalVO;
 import com.google.mapper.JournalMapper;
 
@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 public class JournalServiceImpl implements JournalService {
 	
 	private JournalMapper mapper;
+
 	
 	@Override	
 	public void register(JournalVO vo) {

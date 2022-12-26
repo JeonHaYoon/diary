@@ -31,6 +31,7 @@
 			<div class="col-md-10">
 				<div class="panel panel-default new-message">						
 					<form method="post" id="frm" class="form-horizontal" action="" >
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 						<div class="panel-body">
 							<div class="media-body">
 									

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.google.mapper.ReplyMapper">
+
+
+<!-- 댓글등록 -->
+<insert id="insert">
+INSERT INTO sel_reply VALUES(null, #{select_pk}, #{reply}, #{replyer}, now(), now());
+</insert>
+
+
+<!-- 댓글조회 -->
+<select id="read" resultType="com.google.domain.ReplyVO">
+SELECT * FROM sel_reply WHERE rno = #{rno}
+</select>
+
+
+<!-- 댓글 삭제 -->
+<delete id="delete">
+DELETE FROM sel_reply WHERE rno = #{rno}
+</delete>
+
+
+<!-- 댓글수정 -->
+<update id="update">
+UPDATE sel_reply 
+SET reply = #{reply}, updatedate=now()
+WHERE rno = #{rno}
+</update>
+
+<select id="getListWithPaging" resultType="com.google.domain.ReplyVO">
+SELECT * FROM sel_reply 
+WHERE select_pk = #{select_pk}
+ORDER BY rno ASC
+LIMIT  #{cri.skip} , #{cri.amount} 
+</select>
+
+<select id ="getCountByPk" resultType="int">
+SELECT count(*) FROM sel_reply
+WHERE select_pk=#{select_pk}
+
+</select>
+
+</mapper>

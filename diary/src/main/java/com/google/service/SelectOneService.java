@@ -1,6 +1,9 @@
 package com.google.service;
 
-import com.google.controller.Criteria;
+import java.util.List;
+
+import com.google.domain.Criteria;
+import com.google.domain.SelectOneAttachDTO;
 import com.google.domain.SelectOneVO;
 
 
@@ -12,10 +15,12 @@ public interface SelectOneService {
 
 	public Object getList(Criteria cri);
 
-	public int getListTotal();
+	public int getListTotal(Criteria cri);
 
 	public void modify(SelectOneVO vo);
 
-	public void remove(long select_pk);
+	public boolean remove(long select_pk);
+
+	public List<SelectOneAttachDTO> getAttachList(Long select_pk);
 
 }

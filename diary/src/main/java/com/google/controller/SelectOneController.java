@@ -1,5 +1,10 @@
 package com.google.controller;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,10 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.domain.Criteria;
 import com.google.domain.JournalVO;
 import com.google.domain.SelectOneVO;
+import com.google.domain.PageDTO;
+import com.google.domain.SelectOneAttachDTO;
 import com.google.service.SelectOneService;
 
 import lombok.AllArgsConstructor;
@@ -38,15 +47,25 @@ public class SelectOneController {
 		
 		// journal/list로 이동하면서 result값( 글번호)을 전달함
 		rttr.addFlashAttribute("result", vo.getSelect_pk());
-		return "redirect:/select/selectWrite";
+		return "redirect:/select/selectList";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/selectRead")
-	public String read(@RequestParam("select_pk") long select_pk, Model model) {
+	public String read(@RequestParam("select_pk") long select_pk, Model model, Criteria cri) {
 		
 		model.addAttribute("select", service.read(select_pk));
+		model.addAttribute("pageMaker", new PageDTO(cri));
 		return "/diary/select/selectRead";
+		
+	}
+	
+	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<SelectOneAttachDTO>> getAttachList(Long select_pk){
+		
+		
+		return new ResponseEntity<List<SelectOneAttachDTO>>(service.getAttachList(select_pk), HttpStatus.OK);
 		
 	}
 	
@@ -56,7 +75,7 @@ public class SelectOneController {
 	@GetMapping("/selectList")
 	public String list(Model model, Criteria cri) {
 		model.addAttribute("list", service.getList(cri));
-		int total=service.getListTotal();
+		int total=service.getListTotal(cri);
 		model.addAttribute("pageMaker", new PageDTO(total, cri));
 		
 		return "/diary/select/selectList";

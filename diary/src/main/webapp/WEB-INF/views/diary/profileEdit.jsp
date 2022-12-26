@@ -62,7 +62,7 @@
 
     <a href="/diary/resources/index.html" class="navbar-brand">
       <span class="brand-icon"><i class="fa fa-gg"></i></span>
-      <span class="brand-name">Infinity</span>
+      <span class="brand-name">JPage</span>
     </a>
   </div><!-- .navbar-header -->
   
@@ -163,7 +163,7 @@
         </li>
         
         <li>
-          <a href="map/restaurant">
+          <a href="map/searchPlace">
             <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
             <span class="menu-text">장소 검색</span>
           </a>

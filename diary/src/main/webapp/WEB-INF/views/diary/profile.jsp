@@ -62,7 +62,7 @@
 
     <a href="main" class="navbar-brand">
       <span class="brand-icon"><i class="fa fa-gg"></i></span>
-      <span class="brand-name">Infinity</span>
+      <span class="brand-name">JPage</span>
     </a>
   </div><!-- .navbar-header -->
   
@@ -110,7 +110,7 @@
                   </a>
                 </li>
                 <li>
-                  <a class="text-color" href="profile.html">
+                  <a class="text-color" href="profile">
                     <span class="m-r-xs"><i class="fa fa-user"></i></span>
                     <span>Profile</span>
                   </a>
@@ -163,7 +163,7 @@
         </li>
         
         <li>
-          <a href="map/restaurant">
+          <a href="map/searchPlace">
             <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
             <span class="menu-text">장소 검색</span>
           </a>
@@ -252,6 +252,7 @@
   <!-- /#app-footer -->
 </main>
 <!--========== END app main -->
+
 
 
 

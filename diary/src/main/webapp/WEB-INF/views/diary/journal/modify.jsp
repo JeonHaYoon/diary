@@ -48,6 +48,7 @@
 			<div class="col-md-10">
 				<div class="panel panel-default new-message">						
 					<form method="post" action="" id="frm" >
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 						<div class="panel-body">
 							<div class="form-group">
 								<input type="hidden" name="journal_pk" value="${journal.journal_pk }"/>

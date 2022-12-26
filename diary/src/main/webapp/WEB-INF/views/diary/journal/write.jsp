@@ -26,6 +26,7 @@
 			<div class="col-md-10">
 				<div class="panel panel-default new-message">						
 					<form id="frm" method="post" action="" >
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 						<div class="panel-body">
 							<div class="form-group">
 								<input type="text" class="form-control input-sm" id="journal_writer" readonly="readonly" name="journal_writer" 	value="<sec:authentication property="principal.username"/>">								

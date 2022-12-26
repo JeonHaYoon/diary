@@ -5,6 +5,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.google.mapper.SelectOneMapper">
 
+<sql id="criteria">
+	<trim prefix="AND (" suffix=")  " prefixOverrides="OR" >
+		<foreach item="type" collection="typeArr">
+			<trim prefix="OR">
+				<choose>
+					<when test="type == 'T'.toString()">
+						select_title LIKE concat ('%', #{keyword}, '%')
+					</when>
+					<when test="type == 'C'.toString()">
+						select_content LIKE concat ('%', #{keyword}, '%')
+					</when>
+				</choose>
+			</trim>
+		</foreach>
+	</trim>
+</sql>
 
 <insert id="insert" >
 INSERT INTO selectone (select_title, select_category, select_content, select_itemA, select_itemB )
@@ -22,16 +38,39 @@ SELECT * FROM selectone WHERE select_pk > 0 ORDER BY select_pk DESC
 </select>
 
 <select id="getListWithPaging" resultType="com.google.domain.SelectOneVO">
+
+SELECT * FROM selectone 
 <![CDATA[
-SELECT * FROM selectone WHERE select_pk > 0 ORDER BY select_pk DESC
-LIMIT #{skip}, #{amount} 
+WHERE select_pk > 0 
 ]]>
+
+<trim prefix="AND (" suffix=")  " prefixOverrides="OR" >
+	<foreach item="type" collection="typeArr">
+		<trim prefix="OR">
+			<choose>
+				<when test="type == 'T'.toString()">
+					select_title LIKE concat ('%', #{keyword}, '%')
+				</when>
+				<when test="type == 'C'.toString()">
+					select_content LIKE concat ('%', #{keyword}, '%')
+				</when>
+			</choose>
+		</trim>
+	</foreach>
+</trim>
+
+ORDER BY select_pk DESC
+LIMIT  #{skip} , #{amount}
+
 </select>
 
 <select id="getListTotal" resultType="int">
 <![CDATA[
-SELECT count(*) FROM selectone WHERE select_pk > 0 
+SELECT count(*) FROM selectone 
+WHERE select_pk > 0
 ]]>
+
+<include refid="criteria"/>
 </select>
 
 <update id="updateHit">
@@ -40,12 +79,17 @@ WHERE select_pk = #{select_pk}
 </update>
 
 <update id="update">
-UPDATE selectone SET select_title = #{select_title}, select_category=#{select_category}, select_content = #{select_content}, select_itemA=#{select_itemA}, select_itemB=#{select_itemB}
+UPDATE selectone SET select_title = #{select_title}, select_category=#{select_category}, select_content = #{select_content}, select_itemA=#{select_itemA}, select_itemB=#{select_itemB}, select_update=now()
 WHERE select_pk = #{select_pk} 
 </update>
 
 <delete id="delete" >
 DELETE FROM selectone WHERE select_pk = #{select_pk}
 </delete>
+
+<update id="updateReplyCnt">
+UPDATE selectone SET select_replyCnt = select_replyCnt + #{amount}
+WHERE select_pk = #{select_pk} 
+</update>
 
 </mapper>

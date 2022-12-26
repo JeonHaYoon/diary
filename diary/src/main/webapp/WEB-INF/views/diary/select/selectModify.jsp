@@ -27,7 +27,7 @@
 							</small>
 						</div>
 						<form class="form-horizontal" method="post" action="" id="frm" >
-						
+						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 						<div class="form-group">
 								
 								<div class="col-sm-9">

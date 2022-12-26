@@ -1,4 +1,6 @@
-package com.google.controller;
+package com.google.domain;
+
+import com.google.domain.Criteria;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +23,12 @@ public class PageDTO {
 	private int total;		//전체글수
 	private Criteria cri; //페이징
 	
+	public PageDTO(Criteria cri) {
+		super();
+		this.cri = cri;
+	}
+	
+	
 	
 	public PageDTO(int total, Criteria cri) {
 		super();
@@ -41,7 +49,7 @@ public class PageDTO {
 		this.prev = this.startPage > 1;
 		this.next = this.endPage < realEnd;
 	}
-	
+
 	
 	
 }
