@@ -20,11 +20,11 @@
 </head>
 <body class="simple-page">
 	<div id="back-to-home">
-		<a href="main.jsp" class="btn btn-outline btn-default"><i class="fa fa-home animated zoomIn"></i></a>
+		<a href="/diary/main" class="btn btn-outline btn-default"><i class="fa fa-home animated zoomIn"></i></a>
 	</div>
 	<div class="simple-page-wrap">
 		<div class="simple-page-logo animated swing">
-			<a href="main.jsp">
+			<a href="/diary/main">
 				<span><i class="fa fa-gg"></i></span>
 				<span>JPage</span>
 			</a>

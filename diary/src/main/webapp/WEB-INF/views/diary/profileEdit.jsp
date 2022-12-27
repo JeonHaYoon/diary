@@ -198,7 +198,7 @@
 		<div class="cover-user m-b-lg">
 			
 			<form action="" method="post">
-			
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 				<div class="text-center">
 					<div class="avatar avatar-xl avatar-circle">
 						<a href="javascript:void(0)">

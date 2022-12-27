@@ -44,4 +44,22 @@ UPDATE member SET nickname = #{nickname}, email = #{email}, region = #{region}
 WHERE memberId = #{memberId} 
 </update>
 
+<select id="idcheck" parameterType="String" resultType="int">
+SELECT COUNT(*) FROM member 
+WHERE memberId=#{memberId}
+</select>
+
+<select id="nickcheck" parameterType="String" resultType="int">
+SELECT COUNT(*) FROM member 
+WHERE nickname=#{nickname}
+</select>
+
+
+<select id="emailcheck" parameterType="String" resultType="int">
+SELECT COUNT(*) FROM member 
+WHERE email=#{email}
+</select>
+
+
+
 </mapper>

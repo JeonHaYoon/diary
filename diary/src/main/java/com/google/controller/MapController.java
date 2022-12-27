@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MapController {
 
 	
-	@GetMapping("/searchPlacy")
+	@GetMapping("/searchPlace")
 	public String restaurant() {
 		
-		return "/diary/map/searchPlacy";
+		return "/diary/map/searchPlace";
 	}
 	
 	

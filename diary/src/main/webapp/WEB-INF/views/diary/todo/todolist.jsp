@@ -19,7 +19,7 @@
 					<div class="widget-body">
 										
 						<form method="post" class="form-horizontal" action="">
-							
+							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 							<table class="table" id="crew">
 								<tr>
 									<th>내용</th><th>중요도</th><th></th>		

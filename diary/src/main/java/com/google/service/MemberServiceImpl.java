@@ -43,6 +43,24 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.read(memberId);
 	}
 
+	@Override
+	public int idcheck(String memberId) {
+		// TODO Auto-generated method stub
+		return mapper.idcheck(memberId);
+	}
+
+	@Override
+	public int nickcheck(String nickname) {
+		// TODO Auto-generated method stub
+		return mapper.nickcheck(nickname);
+	}
+
+	@Override
+	public int emailcheck(String email) {
+		// TODO Auto-generated method stub
+		return mapper.emailcheck(email);
+	}
+
 	
 	
 	

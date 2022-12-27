@@ -58,8 +58,21 @@
 								</div>
 							</div> -->
 							
-							<input type="text" class="form-control" id="select_itemA"  name="select_itemA" placeholder="항목A" required="required">
-							<input type="text" class="form-control" id="select_itemB"  name="select_itemB" placeholder="항목B" required="required">
+							<div class="form-group">
+								<label for="select_title" class="col-sm-3 control-label">항목A:</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="select_itemA"  name="select_itemA" placeholder="항목A" required="required">
+								</div>
+							</div>
+							
+							
+							<div class="form-group">
+								<label for="select_title" class="col-sm-3 control-label">항목B:</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" id="select_itemB"  name="select_itemB" placeholder="항목B" required="required">
+								</div>
+							</div>
+												
 						
 						
 							

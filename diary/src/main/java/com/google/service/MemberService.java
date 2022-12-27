@@ -9,7 +9,13 @@ public interface MemberService {
 	
 	public void modify(MemberVO vo); 
 
-	public MemberVO getMemberById(String memberId); 
+	public MemberVO getMemberById(String memberId);
+
+	public int idcheck(String memberId);
+
+	public int nickcheck(String nickname);
+
+	public int emailcheck(String email); 
 
 	
 

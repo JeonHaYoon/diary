@@ -11,4 +11,10 @@ public interface MemberMapper {
 	
 	public void update(MemberVO vo);  //회원정보 수정
 
+	public int idcheck(String memberId);
+
+	public int nickcheck(String nickname);
+
+	public int emailcheck(String email);
+
 }
