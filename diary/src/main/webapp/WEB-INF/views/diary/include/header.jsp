@@ -8,9 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 	<meta name="description" content="Admin, Dashboard, Bootstrap" />
-	<link rel="shortcut icon" sizes="196x196" href="/diary/resources/assets/images/logo.png">
-	
-	
+	<link rel="shortcut icon" sizes="196x196" href="/diary/resources/assets/images/logo.png">	
 	
 	<link rel="stylesheet" href="/diary/resources/libs/bower/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/diary/resources/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
@@ -21,7 +19,7 @@
 	<link rel="stylesheet" href="/diary/resources/assets/css/bootstrap.css">
 	<link rel="stylesheet" href="/diary/resources/assets/css/core.css">
 	<link rel="stylesheet" href="/diary/resources/assets/css/app.css">
-	
+
 	
 	<!-- build:js /admin/resources/assets/js/core.min.js -->
 	<script src="/admin/resources/libs/bower/jquery/dist/jquery.js"></script>
@@ -73,6 +71,7 @@
       <span class="brand-name">JPage</span>
     </a>
   </div><!-- .navbar-header -->
+  	
   
   <div class="navbar-container container-fluid">
     <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -148,7 +147,8 @@
             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
           </a>
           <ul class="submenu">
-            <li><a href="../journal/write"><span class="menu-text">나의 일기</span></a></li>
+            <li><a href="../journal/write"><span class="menu-text">일기쓰기</span></a></li>
+            <li><a href="../journal/list"><span class="menu-text">나의 일기</span></a></li>
             <li><a href="../journal/readAll"><span class="menu-text">다른 사람 일기</span></a></li>
           </ul>
         </li>

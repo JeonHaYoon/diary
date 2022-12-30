@@ -15,4 +15,6 @@ public interface ReplyService {
 	public ReplyPageDTO getListWithPaging(Criteria cri, long select_pk);
 
 	public int delete(long rno);
+
+	public int update(ReplyVO vo);
 }

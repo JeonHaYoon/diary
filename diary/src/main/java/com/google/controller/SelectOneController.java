@@ -33,6 +33,7 @@ public class SelectOneController {
 
 	private SelectOneService service;
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/selectWrite")
 	public String selectWrite() {
 		

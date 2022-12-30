@@ -187,6 +187,7 @@ $(document).ready(function(){
 	//닉네임  중복여부 확인
 	$('#nickname').on("blur", function(){
 		let nickname = $('#nickname').val().trim();
+		let reg =   /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
 		
 		if(nickname == ''){
 			$('#nickNameErrMsg').text('닉네임은 2~10글자 입력하셔야합니다.');
@@ -196,6 +197,9 @@ $(document).ready(function(){
 			$('#nickNameErrMsg').text('닉네임은 2~10글자 입력하셔야합니다.');
 			$('#nickNameErrMsg').css('color','red');
 			$('#nickname').focus();
+		} else if(!reg.test(nickname) ) {	
+			$('#nickNameErrMsg').text('한글, 숫자, 영어로만 입력하셔야합니다.');
+			$('#nickNameErrMsg').css('color','red');			
 		} else {
 			$('#nickNameErrMsg').text('');
 			$('#nickNameErrMsg').css('color','');

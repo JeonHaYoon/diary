@@ -1,6 +1,7 @@
 package com.google.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -42,14 +43,14 @@ public class JournalServiceImpl implements JournalService {
 	}
 
 	@Override
-	public Object getList(Criteria cri) {
-		return mapper.getListWithPaging(cri);
+	public List<JournalVO> getList(Criteria cri) {
+		return mapper.getMyListWithPaging(cri);
 	}
 
 	@Override
-	public int getListTotal() {
+	public int getListTotal(Criteria cri) {
 		// TODO Auto-generated method stub
-		return mapper.getListTotal();
+		return mapper.getListTotal(cri);
 	}
 	
 

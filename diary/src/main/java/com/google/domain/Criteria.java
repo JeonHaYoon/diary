@@ -24,6 +24,7 @@ public class Criteria {
 	private String type;	//검색조건
 	private String keyword;	//검색어
 	
+	private String memberId; //로그인한 아이디
 	
 	//기본생성자
 	public Criteria() {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -99,5 +100,24 @@ public class ReplyController {
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);	
 	}
 	
+	/**
+	 * 댓글 수정
+	 * PUT메소드, rno값은 주소 뒤에 넣어준다
+	 * http://localhost/admin/replies/10
+	 * {"bno":3,  "reply":"수업중", "replyer":"user00"}
+	 * @param vo
+	 * @param rno
+	 * @return
+	 */
+	@PutMapping(value = "/{rno}")
+	public ResponseEntity<String> modify(@RequestBody ReplyVO vo,
+										@PathVariable("rno") Long rno){
+		vo.setRno(rno);
+		int updateCount = service.update(vo);
+		
+		return updateCount == 1 
+			?	new ResponseEntity<String>("success", HttpStatus.OK)
+			:  	new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 	
 }

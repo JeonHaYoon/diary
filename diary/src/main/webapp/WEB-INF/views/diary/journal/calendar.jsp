@@ -52,7 +52,7 @@
 <body>
     <div id="calendarForm"></div>
     
-    <button>오늘</button>
+    
 </body>
 
 <script>

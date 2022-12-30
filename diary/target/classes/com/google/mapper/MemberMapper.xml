@@ -46,7 +46,7 @@ WHERE memberId = #{memberId}
 
 <select id="idcheck" parameterType="String" resultType="int">
 SELECT COUNT(*) FROM member 
-WHERE memberId=#{memberId}
+WHERE memberId=#{principal.username}
 </select>
 
 <select id="nickcheck" parameterType="String" resultType="int">

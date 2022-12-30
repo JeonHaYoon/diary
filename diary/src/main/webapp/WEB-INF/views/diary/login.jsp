@@ -52,7 +52,7 @@
 </div><!-- #login-form -->
 
 <div class="simple-page-footer">
-	<p><a href="password-forget.html">비밀번호를 잊으셨나요? ?</a></p>
+	
 	<p>
 		<small>계정이 없으신가요 ?</small>
 		<a href="signup">회원가입</a>

@@ -117,7 +117,7 @@
                 </li>
                 <li role="separator" class="divider"></li>
                 <li>
-                  <a class="text-color" href="logout.html">
+                  <a class="text-color" href="logout">
                     <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
                     <span>Logout</span>
                   </a>
@@ -207,14 +207,17 @@
 					</div><!-- .avatar -->
 	
 					<h4 class="profile-info-name m-b-lg">
-						<input type="text" id="nickname" name="nickname" value="${member.nickname}">
+						<input type="text" id="nickname" name="nickname" required="required" value="${member.nickname}">
+						<p id="nickNameErrMsg"></p>	
 					</h4>
 					<div>
 						<h5><input id="memberId" name="memberId" type="hidden" value="${member.memberId}"></h5>
 						<h5>${member.memberId}</h5>
 						<h5><p>${member.birth}</p></h5>
-						<h5><input id="email" name="email" type="text" value="${member.email}"></h5>
-						<h5><input  id="region" name="region" type="text" value="${member.region}"></h5>
+						<h5><input id="email" name="email" type="text" required="required" value="${member.email}"></h5>
+						<p id="emailErrMsg"></p>
+						<h5><input  id="region" name="region" type="text" required="required" value="${member.region}"></h5>
+						<p id="regionErrMsg"></p>
 					</div>
 					<button type="submit" id="btn_edit" class="btn btn-success btn-sm">변경</button>
 				</div>
@@ -271,22 +274,136 @@
 	<script src="/diary/resources/libs/bower/fullcalendar/dist/fullcalendar.min.js"></script>
 	<script src="/diary/resources/assets/js/fullcalendar.js"></script>
 	
-	 <script type="text/javascript">
-      $(document).ready(function () {
-        $('#btn_edit').click(function () {
+<script type="text/javascript">
+
+
+$(document).ready(function () {
+	
+	//닉네임  중복여부 확인
+	$('#nickname').on("blur", function(){
+		let nickname = $('#nickname').val().trim();
+		let reg =   /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/;
+		
+		if(nickname == ''){
+			$('#nickNameErrMsg').text('닉네임은 2~10글자 입력하셔야합니다.');
+			$('#nickNameErrMsg').css('color','red');
+			$('#nickname').focus();
+		} else if(nickname.length < 2 || nickname.length > 10){
+			$('#nickNameErrMsg').text('닉네임은 2~10글자 입력하셔야합니다.');
+			$('#nickNameErrMsg').css('color','red');
+			$('#nickname').focus();
+		} else if(!reg.test(nickname) ) {	
+			$('#nickNameErrMsg').text('한글, 숫자, 영어로만 입력하셔야합니다.');
+			$('#nickNameErrMsg').css('color','red');			
+		} else {
+			$('#nickNameErrMsg').text('');
+			$('#nickNameErrMsg').css('color','');
+			//Ajax 를 이용한 아이디 중복체크
+			//중복된 아이디입니다.
+			//사용가능한 아이디입니다.
+			// ajax 통신
+			//console.log(nickname);
+		   
+			$.ajax({
+		        type : "GET",            // HTTP method type(GET, POST,,,,,) 형식이다.
+		        url : "/diary/nickcheck",      // 컨트롤러에서 대기중인 URL 주소이다.
+		        data : {nickname:nickname},            // Json 형식의 데이터이다.
+		    	dataType : 'json',
+		        success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+		        	console.log(res);
+		        	// 응답코드 > 0000
+		            //사용가능한 아이디입니다.
+		            if(res == 0){
+						
+		    			$('#nickNameErrMsg').text('사용가능한 닉네임입니다.');
+		    			$('#nickNameErrMsg').css('color','green');
+		            } else { //중복된 아이디입니다.
+		    			$('#nickNameErrMsg').text('중복된 닉네임입니다.');
+		    			$('#nickNameErrMsg').css('color','red');
+		    			$('#nickname').focus();
+		            }
+		        },
+		        error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+		        	
+		        	console.log("통신 실패." +XMLHttpRequest)
+		        	console.log("통신 실패." +textStatus)
+		        	console.log("통신 실패." +errorThrown)
+		        }
+		    });
+		}
+	});		
+	
+	
+	//이메일  중복여부 확인
+	$('#email').on("blur", function(){
+		let email = $('#email').val().trim();
+		
+		if(email == ''){
+			$('#emailErrMsg').text('이메일을 입력하셔야합니다.');
+			$('#emailErrMsg').css('color','red');
+			$('#email').focus();
+		} else {
+			$('#emailErrMsg').text('');
+			$('#emailErrMsg').css('color','');
+			//Ajax 를 이용한 아이디 중복체크
+			//중복된 아이디입니다.
+			//사용가능한 아이디입니다.
+			// ajax 통신
+			//console.log(email);
+		   
+			$.ajax({
+		        type : "GET",            // HTTP method type(GET, POST,,,,,) 형식이다.
+		        url : "/diary/emailcheck",      // 컨트롤러에서 대기중인 URL 주소이다.
+		        data : {email:email},            // Json 형식의 데이터이다.
+		    	dataType : 'json',
+		        success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+		        	console.log(res);
+		        	// 응답코드 > 0000
+		            //사용가능한 아이디입니다.
+		            if(res == 0){
+						
+		    			$('#emailErrMsg').text('사용가능한 메일입니다.');
+		    			$('#emailErrMsg').css('color','green');
+		            } else { //중복된 아이디입니다.
+		    			$('#emailErrMsg').text('중복된 메일입니다.');
+		    			$('#emailErrMsg').css('color','red');
+		    			$('#email').focus();
+		            }
+		        },
+		        error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+		        	
+		        	console.log("통신 실패." +XMLHttpRequest)
+		        	console.log("통신 실패." +textStatus)
+		        	console.log("통신 실패." +errorThrown)
+		        }
+		    });
+		}
+	});		
+	
+      $('#btn_edit').click(function () {
           
-          var nickname = $('#nickname').val();
-          var email = $('#email').val();
-          var region = $('#region').val();
+          var nickname = $('#nickname').val().trim();
+          var email = $('#email').val().trim();
+          var region = $('#region').val().trim();
 			
           if(nickname == ''){
-        	  nickname='공백';
+        	 alert("닉네임을 입력해주세요");
+          } else if(email == ''){
+        	  alert("이메일을 입력해주세요");
+          } else if(region == ''){
+        	  alert("지역을 입력해주세요");
+          } else{
+        	 $('form').submit();
           }
-          console.log(nickname);
+          
         });
 
       });
-    </script>
+      
+      
+      
+      
+</script>
 	
 	
 </body>

@@ -91,8 +91,10 @@
       <div class="media-left">
         <div class="avatar avatar-md avatar-circle">
           <a href="javascript:void(0)"><img class="img-responsive" src="/diary/resources/images/dog.jpg" alt="avatar"/></a>
-        </div><!-- .avatar -->
+        </div><!-- .avatar -->        
       </div>
+      	     
+      	
       <div class="media-body">
         <div class="foldable">
           <h5><a href="javascript:void(0)" class="username">John Doe</a></h5>
@@ -116,8 +118,8 @@
                   </a>
                 </li>
                 <li role="separator" class="divider"></li>
-                <li>
-                  <a class="text-color" href="logout">
+                 <li>
+                  <a class="text-color" href="../logout">
                     <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
                     <span>Logout</span>
                   </a>

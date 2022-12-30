@@ -22,12 +22,25 @@
 							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 							<table class="table" id="crew">
 								<tr>
-									<th>내용</th><th>중요도</th><th></th>		
+									<th>내용(등록하면 수정이 불가합니다.)</th><th>중요도</th><th></th>		
 								</tr>
 								<tr>
 									<!-- <th>등록일></th><td><input type="date" name="todo_regdate" id="todo_regdate0" class="form-control" readonly="readonly"></td> -->
 									<td><input type="text" name="todo_content" id="todo_content" class="form-control" required="required"></td>
-									<td><input type="text" name="todo_importance" id="todo_importance" class="form-control"></td>									
+									<td>
+								
+									<div class="form-group">										
+										<div id="control-demo-6" class="col-sm-9">
+											<select class="form-control" name="todo_importance" id="todo_importance">
+												<option value="1">1</option>												
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+										</div>
+									</div><!-- .form-group -->
+									<td></td>									
 								</tr>
 							</table>
 								<button type="submit" class="btn btn-primary">등록</button>

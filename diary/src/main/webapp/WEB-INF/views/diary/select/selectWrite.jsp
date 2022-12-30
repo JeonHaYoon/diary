@@ -23,7 +23,7 @@
 								혼자서 결정하기가 어렵다면, 투표로 올려주세요!
 							</small>
 						</div>
-						<form class="form-horizontal" method="post" action="" id="frm" act >
+						<form class="form-horizontal" method="post" action="" id="frm" action="" >
 						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 						<input type="hidden" class="form-control" readonly="readonly" id="select_writer"  name="select_writer" value="<sec:authentication property="principal.username"/>">
 						

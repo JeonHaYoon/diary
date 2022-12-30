@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.google.mapper.JournalMapper">
 
+
 <insert id="insert" >
 INSERT INTO journal (journal_title, journal_content, journal_weather, journal_writer, journal_regdate)
 VALUES (#{journal_title},#{journal_content},#{journal_weather},#{journal_writer},#{journal_regdate})
@@ -24,22 +25,41 @@ DELETE FROM journal WHERE journal_pk = #{journal_pk}
 </delete>
 
 <select id="getList" resultType="com.google.domain.JournalVO">
-<![CDATA[
+
 SELECT * FROM journal WHERE journal_pk > 0 ORDER BY journal_pk DESC
-]]>
+
 </select>
 
 <select id="getListWithPaging" resultType="com.google.domain.JournalVO">
-<![CDATA[
+
 SELECT * FROM journal WHERE journal_pk > 0 ORDER BY journal_pk DESC
 LIMIT #{skip}, #{amount} 
-]]>
+
 </select>
 
-<select id="getListTotal" resultType="int">
-<![CDATA[
-SELECT count(*) FROM journal WHERE journal_pk > 0 
+<select id="getMyListWithPaging" resultType="com.google.domain.JournalVO">
+
+SELECT * FROM journal
+ 
+<![CDATA[  
+WHERE journal_pk > 0 
 ]]>
+
+AND journal_writer= #{memberId}
+
+ORDER BY journal_pk DESC
+LIMIT #{skip}, #{amount}
+
 </select>
+
+
+
+<select id="getListTotal" resultType="int">
+
+SELECT count(*) FROM journal WHERE journal_pk > 0 
+
+</select>
+
+
 
 </mapper>

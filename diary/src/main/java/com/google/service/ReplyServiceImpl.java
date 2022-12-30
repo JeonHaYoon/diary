@@ -57,6 +57,12 @@ public class ReplyServiceImpl implements ReplyService{
 		return mapper.delete(rno);
 	}
 
+	@Override
+	public int update(ReplyVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.update(vo);
+	}
+
 
 	
 
