@@ -37,7 +37,7 @@
 									<td><c:out value="${list.journal_pk }"/></td>
 									<td><a href="read?journal_pk=<c:out value="${list.journal_pk}"/>"><c:out value="${list.journal_title}"/></a></td>
 									<td><c:out value="${list.journal_writer}"/></td>
-									<td><fmt:formatDate value="${list.journal_regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+									<td><c:out value="${list.journal_regdate}"/></td>
 									
 								</tr>
 								<c:set value="${rowCnt +1 }" var="rowCnt"/>

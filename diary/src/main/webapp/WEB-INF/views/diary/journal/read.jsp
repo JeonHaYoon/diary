@@ -21,7 +21,7 @@
 					</div><!-- .app-action-panel -->
 
 					<div class="m-b-lg">
-						<a href="calendar" type="button" class="btn action-panel-btn btn-default btn-block">목록보기</a>
+						<a href="list" type="button" class="btn action-panel-btn btn-default btn-block">목록보기</a>
 					</div>
 
 					
@@ -39,7 +39,7 @@
 										<input type="hidden" name="journal_pk" value="${journal.journal_pk }"/>
 										<a href="javascript:void(0)"><c:out value="${journal.journal_title}"/></a>
 									</h4>
-									<small class="media-meta"><fmt:formatDate value="${journal.journal_regdate }" pattern="yyyy-MM-dd"/></small>
+									<small class="media-meta"><c:out value="${journal.journal_regdate }"/></small>
 									<small class="media-meta"><c:out value="${journal.journal_weather}"/></small>
 									<div class="stream-body m-t-xl">
 										<% pageContext.setAttribute("newLineChar", "\n"); %>

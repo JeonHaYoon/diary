@@ -20,6 +20,7 @@ public class MemberVO implements Serializable{
 	private String email;
 	private String gender;
 	private boolean enabled;
+	private String authkey;
 	
 	private List<AuthVO> authList;
 

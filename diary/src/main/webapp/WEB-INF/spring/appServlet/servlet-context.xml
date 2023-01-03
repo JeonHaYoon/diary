@@ -34,6 +34,8 @@
 		<beans:property name="maxInMemorySize" value="10485756"></beans:property>
 	</beans:bean>
 	
+
+	
 	<context:component-scan base-package="com.google.controller" />
 	
 	<context:component-scan base-package="com.google.exception" />

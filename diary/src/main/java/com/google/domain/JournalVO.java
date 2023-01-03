@@ -11,10 +11,10 @@ public class JournalVO {
 	private String journal_title;
 	private String journal_content;
 	private String journal_weather;
-	private Date journal_regdate;
+	private String journal_regdate;
 	private String journal_writer;
 	private int journal_hit;
-	private Date journal_update;
+	private String journal_update;
 	
 	
 }

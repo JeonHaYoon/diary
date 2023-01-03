@@ -1,5 +1,6 @@
 package com.google.service;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,6 +61,8 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return mapper.emailcheck(email);
 	}
+
+	
 
 	
 	

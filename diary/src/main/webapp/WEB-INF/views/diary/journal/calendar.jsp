@@ -50,7 +50,14 @@
 
 
 <body>
-    <div id="calendarForm"></div>
+    <div id="calendarForm">
+    
+    
+    
+    </div>
+    
+    <div id="content" class="panel-body" style="display: inline-block; text-align:center; margin-left:300px;"></div>
+    
     
     
 </body>
@@ -89,12 +96,12 @@ function calendarMaker(target, date) {
     }
 
     //날짜 채우기
-    for (i = 1; i <= thisLastDay.getDate(); i++) {
-        if (cnt % 7 == 0) { tag += "<tr>"; }
+    for (i = 01; i <= thisLastDay.getDate(); i++) {
+        if (cnt % 07 == 0) { tag += "<tr>"; }
 
         tag += "<td>" + i + "</td>";
         cnt++;
-        if (cnt % 7 == 0) {
+        if (cnt % 07 == 0) {
             tag += "</tr>";
         }
     }
@@ -126,7 +133,10 @@ function calendarMaker(target, date) {
             "</table>";
         return calendar_html_code;
     }
+    
+ 
 
+    /* 선택한 날짜  */
     function calMoveEvtFn() {
         //전달 클릭
         $(".custom_calendar_table").on("click", ".prev", function () {
@@ -142,13 +152,92 @@ function calendarMaker(target, date) {
         $(".custom_calendar_table").on("click", "td", function () {
             $(".custom_calendar_table .select_day").removeClass("select_day");
             $(this).removeClass("select_day").addClass("select_day");
-            console.log($(this).text());
-            console.log(nowDate.getFullYear());
-            console.log(nowDate.getMonth()+1);
-
             
+            //console.log(nowDate.getFullYear());
+            //console.log(nowDate.getMonth()+1);
+            //console.log($(this).text());
+			
+            var year = nowDate.getFullYear();
+           	var month = nowDate.getMonth()+1;
+           	var day = $(this).text();
+           		//일자가 한자리 수일때 0붙이기
+           		if(day>10){
+           			day=$(this).text();
+           			}else if(day<10){
+           				day='0'+$(this).text();
+           			}
+           		//월이 한자리 수 일때 0 붙이기
+           		if(month>10){
+           			month=nowDate.getMonth()+1;
+           			}else if(month<10){
+           				month='0'+(nowDate.getMonth()+1);
+           			}
+            
+            var date = year +"-" + month +"-"+ day;
+            console.log(date);
+            
+         
+          /* 날짜 클릭하면 해당일자 일기 출력 */  
+          //[{"journal_pk":21,"journal_title":"날씨가 너무춥다","journal_content":"완전춥다","journal_weather":"추움","journal_regdate":"2022-12-15","journal_writer":"admin99","journal_hit":0,"journal_update":"2022-12-15 10:28:05"}]
+            $.ajax({
+            	type:"get",
+            	url:"/diary/journal/calendar/"+date+".json",
+            	contetnType:'application/json',
+            	//data:JSON.stringify(data),
+            	success:function(res){
+            		//console.log(res);
+            		//console.log(res.length);  일기 수      		
+           
+            		 let html = "";
+            		 
+            		 for(let i = 0; i<res.length;i++){
+            			 
+            			var str = JSON.stringify(res[i]);
+                 		let data = JSON.parse(str);
+                 		//console.log(data.journal_pk);
+                 	
+                 		html+='<div class="col-md-8 form-group">';
+                 		html+='<div class="panel panel-default new-message">';					
+                 		html+='<form method="post" id="frm" class="form-horizontal" action="" >';
+                 		//html+='<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">';
+                 		html+='<div class="panel-body">';
+                 		html+='<div class="media-body">';
+                 		html+='<h4 class="media-heading m-t-xs">';
+                 		html+='<input type="hidden" name="journal_pk" value="'+data.journal_pk+'"/>';
+                 		html+='<strong>'+data.journal_title+'</strong>';
+                 		html+='</h4>';
+                 		html+='<small class="media-meta">'+data.journal_regdate+'</small>';
+                 		html+='<br>';
+                 		html+='<small class="media-meta">'+data.journal_weather+'</small>';
+                 		html+='<textarea readonly="readonly" class="form-control">'+data.journal_content+'</textarea>';									
+                 		html+='</div>';
+                 		html+='</div>';
+                 		html+='</form>';
+                 		html+='</div>';
+                 		html+='</div>';
+                 		
+            		 }
+            		 
+                     	$("#content").html(html);
+            		
+            		
+            	},
+            	error:function(request, status, error){
+
+            		console.log("code:"+request.status);
+            		console.log("message:"+request.responseText);
+            		console.log("error:"+error);
+
+            	}
+            });
+            
+            
+           
         });
     }
+    
+    
+    
 }
 </script>
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     
 <!DOCTYPE html>
@@ -24,6 +24,17 @@
 	<script src="/diary/libs/bower/jquery/dist/jquery.js"></script>
 	
 </head>
+<style>
+
+ 
+#mail_check_input_box_false{
+    background-color:#ebebe4;
+}
+ 
+#mail_check_input_box_true{
+    background-color:white;
+}
+</style>
 
 <body class="simple-page">
 	<div id="back-to-home">
@@ -72,9 +83,23 @@
 						</div>
 				
 						<div class="form-group">
-							<input id="email" type="email" name="email" class="form-control" placeholder="이메일">
-							<p id="emailErrMsg"></p>
+							<div>
+								<input id="email" type="email" name="email" class="form-control" placeholder="이메일">
+								<p id="emailErrMsg"></p>
+							</div>
+							<div>
+								<button id="emailAuth" onclick="emailSend()">이메일 인증하기</button>
+							</div>
+							<div>
+								<input id="AuthNumber" type="email" name="AuthNumber" class="form-control" placeholder="인증번호">
+							</div>
+							<div>
+								<button id="btn_certification" onclick="emainCertification()">인증하기</button>
+								<input type="hidden" id="certificationYN" value="false">
+							</div>
 						</div>
+						
+				
 						
 						<div class="form-group">
 							<input id="birth" type="text" name="birth" class="form-control" placeholder="생년월일(ex:19990101)">
@@ -109,6 +134,35 @@
 
 var pwValidate = -1;
 
+//mail인증하기 버튼 클릭 
+function emailSend(){
+	let clientEmail = document.getElementById('emailText').value;
+	let emailYN = isEmail(clientEmail);
+	
+	console.log("입력이메일 "+clientEmail);
+	
+	if(emailYN == true){
+		alert("이메일 형식입니다");
+		
+		$.ajax({
+			type:"POST",
+			url:"/api/memeber/email",
+			data:{clientEmail:clientEmail},
+			success : function(data){
+			},error:function(e){
+				alert("오류입니다. 잠시 후 다시 시도해주세요");
+			}
+		});
+	}else{
+		alert("이메일 형식에 맞게 입력해 주세요");
+	}
+}
+
+function isEmail(asValue){
+	var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-z]{2,3}$/i;
+	return regExp.test(asValue); //형식에 맞는 경우 return 리턴
+	
+}
 $(document).ready(function(){		
 	
 	//아이디  중복여부 확인

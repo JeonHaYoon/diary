@@ -43,8 +43,13 @@ public class JournalServiceImpl implements JournalService {
 	}
 
 	@Override
-	public List<JournalVO> getList(Criteria cri) {
+	public List<JournalVO> getMyList(Criteria cri) {
 		return mapper.getMyListWithPaging(cri);
+	}
+	
+	@Override
+	public List<JournalVO> getList(Criteria cri) {
+		return mapper.getListWithPaging(cri);
 	}
 
 	@Override
@@ -52,7 +57,13 @@ public class JournalServiceImpl implements JournalService {
 		// TODO Auto-generated method stub
 		return mapper.getListTotal(cri);
 	}
-	
+
+	@Override
+	public List<JournalVO> getDate(String journal_regdate) {
+		// TODO Auto-generated method stub
+		return mapper.getDate(journal_regdate);
+	}
+
 
 
 }

@@ -1,5 +1,7 @@
 package com.google.service;
 
+import org.springframework.security.core.userdetails.User;
+
 import com.google.domain.AuthVO;
 import com.google.domain.MemberVO;
 
@@ -15,8 +17,7 @@ public interface MemberService {
 
 	public int nickcheck(String nickname);
 
-	public int emailcheck(String email); 
-
+	public int emailcheck(String email);
 	
 
 	

@@ -18,5 +18,11 @@ public interface JournalService {
 
 	public List<JournalVO> getList(Criteria cri);
 
+	public List<JournalVO> getMyList(Criteria cri);
+
 	public int getListTotal(Criteria cri);
+
+	public List<JournalVO> getDate(String journal_regdate);
+
+	
 }

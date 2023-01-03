@@ -150,6 +150,7 @@
             <li><a href="../journal/write"><span class="menu-text">일기쓰기</span></a></li>
             <li><a href="../journal/list"><span class="menu-text">나의 일기</span></a></li>
             <li><a href="../journal/readAll"><span class="menu-text">다른 사람 일기</span></a></li>
+            <li><a href="../journal/calendar"><span class="menu-text">캘린더</span></a></li>
           </ul>
         </li>
         

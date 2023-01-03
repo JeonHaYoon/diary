@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.domain.Criteria;
 import com.google.domain.SelectOneAttachDTO;
 import com.google.domain.SelectOneVO;
+import com.google.domain.SelectVoteVO;
 import com.google.mapper.SelectOneAttachMapper;
 import com.google.mapper.SelectOneMapper;
+import com.google.mapper.SelectVoteMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -19,6 +21,7 @@ public class SelectOneServiceImpl implements SelectOneService{
 
 	private SelectOneMapper mapper;
 	private SelectOneAttachMapper attachMapper;
+	private SelectVoteMapper voteMapper;
 	
 	@Transactional
 	@Override
@@ -82,5 +85,11 @@ public class SelectOneServiceImpl implements SelectOneService{
 	public List<SelectOneAttachDTO> getAttachList(Long select_pk) {
 		return attachMapper.findByPk(select_pk);
 	}
+
+	@Override
+	public int Votecheck(SelectVoteVO vo) {
+		// TODO Auto-generated method stub
+		return voteMapper.Votecheck(vo);
+		}
 
 }

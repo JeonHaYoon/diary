@@ -2,11 +2,16 @@ package com.google.controller;
 
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +21,7 @@ import com.google.domain.Criteria;
 import com.google.domain.JournalVO;
 import com.google.domain.MemberVO;
 import com.google.domain.PageDTO;
+import com.google.domain.ReplyPageDTO;
 import com.google.service.JournalService;
 import com.google.service.MemberService;
 
@@ -107,24 +113,16 @@ public class JournalController {
 		
 		return "/diary/journal/readAll";
 	}
-	
-	
-	
-	@GetMapping("/calendar")
-	public String list() {
 		
-		return "/diary/journal/calendar";
-	}
-	
-	
 	/**로그인된 회원의 아이디를 받아서 정보를 가져온다.
 	 * 내 글 목록을 나타내주는 메서드
 	 */
-	//@PreAuthorize("principal.username == #vo.journal_writer")
+	//@PreAuthorize("principal.username == #vo.journal_writer")	
 	@GetMapping("/list")
+	@PreAuthorize("isAuthenticated()")
 	public String list(Model model, Principal prin, Criteria cri) {
 		cri.setMemberId(prin.getName());
-		model.addAttribute("list", service.getList(cri));
+		model.addAttribute("list", service.getMyList(cri));
 		
 		int total=service.getListTotal(cri);
 		model.addAttribute("pageMaker", new PageDTO(total, cri));
@@ -132,5 +130,18 @@ public class JournalController {
 		return "/diary/journal/list";
 	}
 	
-		
+	
+	
+	@GetMapping("/calendar")
+	public String calendar() {
+		return "/diary/journal/calendar";
+	}
+	
+	
+	@GetMapping(value = "/calendar/{journal_regdate}")
+	public ResponseEntity<List<JournalVO>> getList(@PathVariable("journal_regdate") String journal_regdate){
+		System.out.println(journal_regdate);
+		return new ResponseEntity<List<JournalVO>>(service.getDate(journal_regdate), HttpStatus.OK);
+	}
+	
 }

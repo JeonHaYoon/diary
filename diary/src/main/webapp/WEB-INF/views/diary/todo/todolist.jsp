@@ -22,10 +22,12 @@
 							<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 							<table class="table" id="crew">
 								<tr>
-									<th>내용(등록하면 수정이 불가합니다.)</th><th>중요도</th><th></th>		
+									<!-- <th>마감일</th> --><th>내용(등록하면 수정이 불가합니다.)</th><th>중요도</th><th></th>		
 								</tr>
 								<tr>
-									<!-- <th>등록일></th><td><input type="date" name="todo_regdate" id="todo_regdate0" class="form-control" readonly="readonly"></td> -->
+									
+									<!-- <td><div class='input-group date'><p><input type="text" name="todo_deadline" id="datepicker" class="form-control"></p></div></td>
+										 -->
 									<td><input type="text" name="todo_content" id="todo_content" class="form-control" required="required"></td>
 									<td>
 								
@@ -62,7 +64,7 @@
 							<table id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
 								<thead>
 									<tr>
-										<th>등록일</th><th>내용</th><th>중요도</th><th>완료여부</th>								
+										<th>등록일</th><th>내용</th><th>중요도</th><th>마감일</th><th>완료여부</th>								
 									</tr>
 								</thead>
 								<tbody>
@@ -72,6 +74,7 @@
 										<td><fmt:formatDate value="${todoList.todo_regdate }" pattern="yyyy-MM-dd"/></td>
 										<td>${todoList.todo_content }</td>
 										<td>${todoList.todo_importance }</td>
+										<%-- <td><fmt:formatDate value="${todoList.todo_deadline }" pattern="yyyy-MM-dd"/></td> --%>
 										<td>
 											<c:if test="${todoList.todo_ok eq 'done'}"> 
 												<button type="button" id="btn_done${idx }<%//=idx %>" data-todo_pk="${todoList.todo_pk }" class="btn mw-md btn-dark btn-sm" onclick="todo(this)">완료</button></td>
@@ -93,6 +96,7 @@
 				</div><!-- .widget -->
 		</div><!-- END column -->
 </div>
+
 
 <script>
 
@@ -162,7 +166,10 @@ function todo(t){
 	
 }
 
+
+
 </script>
+
 
   
  <%@ include file="../include/footer.jsp"%>

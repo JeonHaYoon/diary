@@ -92,4 +92,6 @@ UPDATE selectone SET select_replyCnt = select_replyCnt + #{amount}
 WHERE select_pk = #{select_pk} 
 </update>
 
+
+
 </mapper>

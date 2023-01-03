@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.domain.Criteria;
 import com.google.domain.SelectOneAttachDTO;
 import com.google.domain.SelectOneVO;
+import com.google.domain.SelectVoteVO;
 
 
 public interface SelectOneService {
@@ -22,5 +23,7 @@ public interface SelectOneService {
 	public boolean remove(long select_pk);
 
 	public List<SelectOneAttachDTO> getAttachList(Long select_pk);
+
+	public int Votecheck(SelectVoteVO vo);
 
 }

@@ -22,5 +22,7 @@ public class SelectOneVO {
 	private int select_replyCnt; //댓글수
 	
 	private List<SelectOneAttachDTO> attachList;
+	private List<SelectVoteVO> vote;
+
 	
 }

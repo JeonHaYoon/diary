@@ -37,6 +37,8 @@ LIMIT #{skip}, #{amount}
 
 </select>
 
+
+<!-- 본인이 쓴 글만 표시-->
 <select id="getMyListWithPaging" resultType="com.google.domain.JournalVO">
 
 SELECT * FROM journal
@@ -53,12 +55,17 @@ LIMIT #{skip}, #{amount}
 </select>
 
 
-
 <select id="getListTotal" resultType="int">
 
 SELECT count(*) FROM journal WHERE journal_pk > 0 
 
 </select>
+
+
+<select id="getDate" resultType="com.google.domain.JournalVO">
+SELECT * FROM journal WHERE journal_regdate = #{journal_regdate}
+</select>
+
 
 
 

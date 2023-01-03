@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.google.domain.Criteria;
 import com.google.domain.SelectOneVO;
+import com.google.domain.SelectVoteVO;
 
 public interface SelectOneMapper {
 
@@ -27,5 +28,6 @@ public interface SelectOneMapper {
 
 	//@Param값에 넣어주면 SelectOneMapper.xml에서 해당 값을 사용할 수 있다.
 	public void updateReplyCnt(@Param("select_pk") long select_pk,@Param("amount") int amount);
+
 
 }

@@ -25,4 +25,7 @@ public interface JournalMapper {
 	public int getListTotal(Criteria cri);
 	
 	public List<JournalVO> getList();
+
+	public List<JournalVO> getDate(String journal_regdate);
+
 }
