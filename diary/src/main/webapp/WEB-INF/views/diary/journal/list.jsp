@@ -14,6 +14,17 @@
 	
 		<div class="row">				
 						<div class="col-md-12">
+						<div class="widget">
+						<header class="widget-header">
+							<h4 class="widget-title">나의 일기</h4>
+						</header><!-- .widget-header -->
+						<hr class="widget-separator">
+						<div class="widget-body">
+							<div class="m-b-lg">
+								<small>
+									내가 쓴 일기만 조회됩니다.
+								</small>
+							</div>
 				 		
 							<table class="table">
 								<colgroup>
@@ -51,7 +62,8 @@
 								
 							</table>
 						</div> 
-						
+					</div>	
+					</div>
 						
 					<!-- 페이징 -->
 						<nav style="text-align:center;">

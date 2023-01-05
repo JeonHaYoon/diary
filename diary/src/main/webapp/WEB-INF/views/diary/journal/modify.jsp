@@ -26,22 +26,7 @@
 						<a href="calendar" type="button" class="btn action-panel-btn btn-default btn-block">목록보기</a>
 					</div>
 
-					<div class="app-actions-list scrollable-container">
-						<!-- mail category list -->
-						<div class="list-group">
-							<a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-envelope"></i>Inbox</a>
-							<a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-star"></i>Starred</a>
-							<a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-bookmark"></i>Important</a>
-							<a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-paper-plane"></i>Sent</a>
-							<a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-exclamation-triangle"></i>Drafts</a>
-							<a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-folder"></i>All Mail</a>
-							<a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-exclamation-circle"></i>Spam</a>
-							<a href="javascript:void(0)" class="text-color list-group-item"><i class="m-r-sm fa fa-trash"></i>Trash</a>
-						</div><!-- .list-group -->
-
-						
-					
-					</div><!-- .app-actions-list -->
+		
 				</div><!-- .app-action-panel -->
 			</div><!-- END column -->
 
@@ -56,10 +41,10 @@
 								<input type="text" class="form-control" id="journal_title" name="journal_title" value="${journal.journal_title}" required="required">
 							</div><!-- .form-group -->
 
-							<div class="form-group m-b-0">
+							<div class="form-group m-b-10">
 								<div class="row">
-							<input type="text" class="form-control" id="journal_regdate" name="" 
-								 value="<fmt:formatDate value="${journal.journal_regdate }" pattern="yyyy-MM-dd"/>" readonly="readonly"> 
+							<input type="text" class="form-control" id="journal_regdate" name="journal_regdate" 
+								 value="<c:out value="${journal.journal_regdate }" />" readonly="readonly"> 
 														
 								
 									<div class="col-sm-6" id="journal_weather" >

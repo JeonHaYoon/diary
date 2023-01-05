@@ -13,23 +13,34 @@
   <div class="wrap">
 	
 		<div class="row">
-			<div class="col-md-3">
-				<div class="app-action-panel" id="calendar-action-panel">
-					<div class="action-panel-toggle" data-toggle="class" data-target="#calendar-action-panel" data-class="open">
+		
+			<div class="col-md-2">
+				<div class="app-action-panel" id="compose-action-panel">
+					<div class="action-panel-toggle" data-toggle="class" data-target="#compose-action-panel" data-class="open">
 						<i class="fa fa-chevron-right"></i>
 						<i class="fa fa-chevron-left"></i>
 					</div><!-- .app-action-panel -->
-					
+
 					<div class="m-b-lg">
-						<a href="write"  class="btn btn-lg btn-primary btn-block">일기쓰기</a>
-						<a href="../todo/todolist"  class="btn btn-lg btn-primary btn-block">투두리스트 작성</a>
+						<a href="write"  class="btn action-panel-btn btn-default btn-block">일기쓰기</a>
 					</div>
-		
+
+					
 				</div><!-- .app-action-panel -->
 			</div><!-- END column -->
-			
-						<div class="col-md-9">
-				 		
+						
+						<div class="col-md-10">
+				 		<div class="widget">
+						<header class="widget-header">
+							<h4 class="widget-title">모든 일기</h4>
+						</header><!-- .widget-header -->
+						<hr class="widget-separator">
+						<div class="widget-body">
+							<div class="m-b-lg">
+								<small>
+									모두가 쓴 일기가 조회됩니다.
+								</small>
+							</div>
 							<table class="table">
 								<colgroup>
 									<col style="width:80px;"/>
@@ -65,7 +76,10 @@
 								</c:if>
 								
 							</table>
-						</div> 
+						</div>
+					</div>
+				</div>
+						
 						
 						
 					<!-- 페이징 -->

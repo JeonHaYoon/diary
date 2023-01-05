@@ -14,8 +14,6 @@ public class TodoVO {
 	private Date todo_regdate;
 	private String todo_content;
 	private int todo_importance;
-	
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	private Date todo_deadline;
+	private String todo_deadline;
 	private String todo_ok;
 }

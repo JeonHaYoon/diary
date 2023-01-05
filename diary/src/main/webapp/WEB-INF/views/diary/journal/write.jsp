@@ -20,7 +20,7 @@
 					</div><!-- .app-action-panel -->
 
 					<div class="m-b-lg">
-						<a href="calendar" type="button" class="btn action-panel-btn btn-default btn-block">목록보기</a>
+						<a href="readAll" type="button" class="btn action-panel-btn btn-default btn-block">목록보기</a>
 					</div>
 
 					
@@ -28,7 +28,17 @@
 			</div><!-- END column -->
 
 			<div class="col-md-10">
-				<div class="panel panel-default new-message">						
+				<div class="panel panel-default new-message">
+					<header class="widget-header">
+						<h4 class="widget-title">일기쓰기</h4>
+					</header><!-- .widget-header -->	
+					<hr class="widget-separator">
+					<div class="widget-body">
+					<div class="m-b-lg">
+						<small>
+							오늘의 일기를 작성해주세요!
+						</small>
+						</div>			
 					<form id="frm" method="post" action="" >
 					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 						<div class="panel-body">
@@ -86,6 +96,7 @@
 							</div>
 						</div><!-- .panel-footer -->
 					</form>
+					</div>
 				</div><!-- .panel -->
 			</div><!-- END column -->
 		</div><!-- .row -->
