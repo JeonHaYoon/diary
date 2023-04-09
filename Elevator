@@ -358,70 +358,40 @@ bool compare (int x, int y)
 void CElevator3Dlg::DEQUE_PRINT()
 {
 	//for(iter= m_deque.begin(); iter!= m_deque.end(); iter++)
-	for (int i = 0; i < m_deque.size(); i++)
+	
+	while (!m_deque.empty())
 	{
-		//sort(m_deque.begin(), m_deque.end());
+		// 목적지 층을 꺼냄
+		int nDestFloor = m_deque.front();
+		m_deque.pop_front();
 
-		//CString wstrDeque;
-		
-		//wstrDeque.Format(_T("%d"), m_nDestFloor);
-
-
-		//중복값 제거
-		//m_deque.erase(unique(m_deque.begin(), m_deque.end()), m_deque.end());
-
-		m_nDestFloor = m_deque.at(i);
-		
-
-		//int nDeque = 0;
-		CString wstrDeque;
-		//nDeque = m_deque.at(i);
-		wstrDeque.Format(_T("[%02d] %d"), i + 1, m_deque.at(i));
-		m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" ") + wstrDeque);
-		m_listBoxMSG.SetCurSel(m_listBoxMSG.GetCount() - 1);
-
-
+		// 목적지 층 처리
+		m_nDestFloor = nDestFloor;
 		if (m_nElevator > m_nDestFloor)
 		{
 			m_Elevator_state = Elevator_state_DOWN;
-			sort(m_deque.begin(), m_deque.end(), compare);
-			m_DownDeque.push_back(m_deque.at(i));		
-			//m_DownDeque.erase(unique(m_DownDeque.begin(), m_DownDeque.end()), m_DownDeque.end());
-
-
-			
-			
-			
-
-			//CString wstrTXT_;
-			//wstrTXT_.Format(_T("[%02d]-->[%02d]"), m_nElevator, m_nDestFloor);
-			//m_listBoxMSG.AddString(wstrTXT_);
+			m_DownDeque.push_back(m_nDestFloor);
 		}
-
 		else if (m_nElevator < m_nDestFloor)
 		{
 			m_Elevator_state = Elevator_state_UP;
-			sort(m_deque.begin(), m_deque.end());
-			m_UpDeque.push_back(m_deque.at(i));
-			
-			//m_UpDeque.erase(unique(m_UpDeque.begin(), m_UpDeque.end()), m_UpDeque.end());
-
-			//sort(m_UpDeque.begin(), m_UpDeque.end());
-
-			
-			
+			m_UpDeque.push_back(m_nDestFloor);
 		}
-		else if(m_nElevator == m_nDestFloor)
+		else
 		{
 			Elevator_STOP();
-			
 		}
 
-
-
-
-		
+		// 리스트 박스에 출력
+		CString wstrDeque;
+		wstrDeque.Format(_T("[%02d] %d"), m_deque.size() + 1, nDestFloor);
+		m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" ") + wstrDeque);
+		m_listBoxMSG.SetCurSel(m_listBoxMSG.GetCount() - 1);
 	}
+	
+	
+	
+
 }
 
 
