@@ -433,32 +433,54 @@ void CElevator3Dlg::DEQUE_PRINT()
 void CElevator3Dlg::Elevator_MOVE()
 {
 	CPaintDC dc(this);
+
+
+	int nNow = 1; // 현재 층을 나타내는 변수 now
+	int nUp = 1; // 엘리베이터가 현재 이동하는 방향을 나타내는 변수 up (초기값은 1로 설정)
+	int nDoor = 0;
+	int nTo = 0;
+	while (true) {
+		nNow += nUp; // 엘리베이터 위치를 업데이트한다
+		cout << nNow << "층입니다.\n";
+		if (nDoor) continue; // 문이 열려있으면 다음 반복으로 넘어간다
+		if (nTo == nNow) continue; // 목적지 층이 현재 층과 같으면 다음 반복으로 넘어간다
+		if (nTo > nNow) {
+			cout << "위쪽으로 이동 중입니다.\n";
+			nUp = 1; // 엘리베이터가 위쪽으로 이동할 때는 up 변수를 1로 설정한다
+		}
+		else if (nTo < nNow) {
+			cout << "아래쪽으로 이동 중입니다.\n";
+			nUp = -1; // 엘리베이터가 아래쪽으로 이동할 때는 up 변수를 -1로 설정한다
+		}
+	}
 	
 	//m_ny1_pos = 520 - ((m_nDeque - 1) * 30);
 	
-	if (m_nElevator > m_nDestFloor)
-	{
-		//m_Elevator_state = Elevator_state_DOWN;
-		KillTimer(_TIMER_ELEVATOR_UP);
-		SetTimer(_TIMER_ELEVATOR_DOWN, 1 * 1000, NULL);
-
-	}
-	else  if(m_nElevator < m_nDestFloor)
-	{
+	//if (m_nElevator > m_nDestFloor)
+	//{
+	//	//m_Elevator_state = Elevator_state_DOWN;
+	//	KillTimer(_TIMER_ELEVATOR_UP);
+	//	SetTimer(_TIMER_ELEVATOR_DOWN, 1 * 1000, NULL);
+	
+	//}
+	//else  if(m_nElevator < m_nDestFloor)
+	//{
 		//m_Elevator_state = Elevator_state_UP;
-		KillTimer(_TIMER_ELEVATOR_DOWN);
-		SetTimer(_TIMER_ELEVATOR_UP, 1 * 1000, NULL);
-	}
-	else if (m_Elevator_state = Elevator_state_STOP)
-	{
+	//	KillTimer(_TIMER_ELEVATOR_DOWN);
+	//	SetTimer(_TIMER_ELEVATOR_UP, 1 * 1000, NULL);
+	//}
+	//else if (m_Elevator_state = Elevator_state_STOP)
+	//{
 		//m_Elevator_state = Elevator_state_STOP;
 		//KillTimer(_TIMER_ELEVATOR_UP);
 		//KillTimer(_TIMER_ELEVATOR_DOWN);
 		//Elevator_STOP();
-	}
+	//}
 	
 
 	InvalidateRect(CRect(00, 00, 1000, 1000));
+
+
 }
 
 
