@@ -61,6 +61,7 @@ CElevator3Dlg::CElevator3Dlg(CWnd* pParent /*=nullptr*/)
 	m_nElevator = 1;
 	m_wstrX = (_T("1"));
 	m_Elevator_state = Elevator_state_STOP;
+	m_nCurrent_floor = 1;
 }
 
 void CElevator3Dlg::DoDataExchange(CDataExchange* pDX)
@@ -252,7 +253,7 @@ void CElevator3Dlg::OnTimer(UINT_PTR nIDEvent)
 				//	cur_time.wMilliseconds);
 
 				DEQUE_PRINT();
-				Elevator_MOVE();
+			
 				Elevator_Turn();
 			}
 			
@@ -430,9 +431,12 @@ void CElevator3Dlg::DEQUE_PRINT()
 
 
 
-void CElevator3Dlg::Elevator_MOVE()
+void CElevator3Dlg::Elevator_MOVE(int direction)
 {
 	CPaintDC dc(this);
+
+	m_nCurrent_floor += direction; // 이동 방향에 따라 층수 변경
+	cout << "현재 층: " << m_nCurrent_floor << endl; // 현재 층 출력
 
 
 	int nNow = 1; // 현재 층을 나타내는 변수 now
@@ -738,6 +742,16 @@ void CElevator3Dlg::OnBnClickedChkBtn5()
 	m_deque.push_back(m_nValue);
 	DEQUE_PRINT();
 	//Elevator_MOVE();
+
+	int destination_floor = 5; // 이동할 층을 1층으로 설정
+	while (m_nCurrent_floor != destination_floor) { // 현재 층이 목적지 층이 될 때까지 반복
+		if (m_nCurrent_floor < destination_floor) { // 목적지 층이 더 높은 경우
+			Elevator_MOVE(1); // 엘리베이터를 올라가도록 이동
+		}
+		else { // 목적지 층이 더 낮은 경우
+			Elevator_MOVE(-1); // 엘리베이터를 내려가도록 이동
+		}
+	}
 }
 
 
