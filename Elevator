@@ -58,7 +58,6 @@ CElevator3Dlg::CElevator3Dlg(CWnd* pParent /*=nullptr*/)
 	m_ny1_pos = 520;
 	//m_nx2_pos = 210;
 	//m_ny2_pos = 730;
-	m_nCurFloor = 1;
 	m_nElevator = 1;
 	m_wstrX = (_T("1"));
 	m_Elevator_state = Elevator_state_STOP;
@@ -385,10 +384,14 @@ void CElevator3Dlg::DEQUE_PRINT()
 		if (m_nElevator > m_nDestFloor)
 		{
 			m_Elevator_state = Elevator_state_DOWN;
-			m_DownDeque.push_back(m_deque.at(i));	
 			sort(m_deque.begin(), m_deque.end(), compare);
-				
+			m_DownDeque.push_back(m_deque.at(i));		
 			//m_DownDeque.erase(unique(m_DownDeque.begin(), m_DownDeque.end()), m_DownDeque.end());
+
+
+			
+			
+			
 
 			//CString wstrTXT_;
 			//wstrTXT_.Format(_T("[%02d]-->[%02d]"), m_nElevator, m_nDestFloor);
@@ -398,9 +401,8 @@ void CElevator3Dlg::DEQUE_PRINT()
 		else if (m_nElevator < m_nDestFloor)
 		{
 			m_Elevator_state = Elevator_state_UP;
-			m_UpDeque.push_back(m_deque.at(i));
 			sort(m_deque.begin(), m_deque.end());
-			
+			m_UpDeque.push_back(m_deque.at(i));
 			
 			//m_UpDeque.erase(unique(m_UpDeque.begin(), m_UpDeque.end()), m_UpDeque.end());
 
@@ -409,12 +411,16 @@ void CElevator3Dlg::DEQUE_PRINT()
 			
 			
 		}
-		else 
+		else if(m_nElevator == m_nDestFloor)
 		{
 			Elevator_STOP();
 			
 		}
 
+
+
+
+		
 	}
 }
 
@@ -426,14 +432,16 @@ void CElevator3Dlg::Elevator_MOVE()
 	
 	//m_ny1_pos = 520 - ((m_nDeque - 1) * 30);
 	
-	if (m_Elevator_state = Elevator_state_DOWN)
+	if (m_nElevator > m_nDestFloor)
 	{
+		//m_Elevator_state = Elevator_state_DOWN;
 		KillTimer(_TIMER_ELEVATOR_UP);
 		SetTimer(_TIMER_ELEVATOR_DOWN, 1 * 1000, NULL);
 
 	}
-	else  if(m_Elevator_state = Elevator_state_UP)
+	else  if(m_nElevator < m_nDestFloor)
 	{
+		//m_Elevator_state = Elevator_state_UP;
 		KillTimer(_TIMER_ELEVATOR_DOWN);
 		SetTimer(_TIMER_ELEVATOR_UP, 1 * 1000, NULL);
 	}
@@ -822,21 +830,4 @@ HBRUSH CElevator3Dlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 }
 
 
-
-void CElevator3Dlg::Elevator_UP()
-{
-	m_nDirect  = 1;
-}
-
-
-void CElevator3Dlg::Elevator_DOWN()
-{
-	m_nDirect = -1;
-}
-
-
-void CElevator3Dlg::Elevator_EXIT()
-{
-	m_nDirect = 0;
-}
 
