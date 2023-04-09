@@ -737,10 +737,10 @@ void CElevator3Dlg::OnBnClickedChkBtn4()
 
 void CElevator3Dlg::OnBnClickedChkBtn5()
 {
-	Elevator_Turn();
-	m_nValue = 5; 
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
+	//Elevator_Turn();
+	//m_nValue = 5; 
+	//m_deque.push_back(m_nValue);
+	//DEQUE_PRINT();
 	//Elevator_MOVE();
 
 	int destination_floor = 5; // 이동할 층을 1층으로 설정
@@ -751,6 +751,7 @@ void CElevator3Dlg::OnBnClickedChkBtn5()
 		else { // 목적지 층이 더 낮은 경우
 			Elevator_MOVE(-1); // 엘리베이터를 내려가도록 이동
 		}
+		destination_floor = 5;
 	}
 }
 
