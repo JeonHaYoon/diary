@@ -60,7 +60,7 @@ CElevator3Dlg::CElevator3Dlg(CWnd* pParent /*=nullptr*/)
 	//m_ny2_pos = 730;
 	m_nElevator = 1;
 	m_wstrX = (_T("1"));
-	m_Elevator_state = Elevator_state_STOP;
+	
 }
 
 void CElevator3Dlg::DoDataExchange(CDataExchange* pDX)
@@ -209,7 +209,7 @@ void CElevator3Dlg::OnPaint()
 		bitmap.GetBitmap(&bitmapinfo);
 
 		CBitmap *pOldBitmap = (CBitmap *)MemDC.SelectObject(&bitmap);
-		WinDC.BitBlt(m_nx1_pos - 2, m_ny1_pos - 10, bitmapinfo.bmWidth, bitmapinfo.bmHeight, &MemDC, 0, 0, SRCCOPY);
+		WinDC.BitBlt(m_nx1_pos , m_ny1_pos - 10, bitmapinfo.bmWidth, bitmapinfo.bmHeight, &MemDC, 0, 0, SRCCOPY);
 		MemDC.SelectObject(pOldBitmap);
 
 		CDialogEx::OnPaint();
@@ -232,64 +232,75 @@ void CElevator3Dlg::OnTimer(UINT_PTR nIDEvent)
 	{
 		case _TIMER_DEQUE_ISEMPTY:
 		{
-			if (!m_deque.empty())
+			if (!m_queVfxTANK.empty())
 			{
-				//SYSTEMTIME cur_time;
-				//GetLocalTime(&cur_time);
-				//CTime time = CTime::GetCurrentTime();
+				SYSTEMTIME cur_time;
+				GetLocalTime(&cur_time);
+				CTime time = CTime::GetCurrentTime();
 
-				//m_wstrCurrentTime.Format(_T("%02d/%02d/%02d-%02d:%02d:%02d:%03ld"),
-				//	cur_time.wYear,
-				//	cur_time.wMonth,
-				//	cur_time.wDay,
-				//	cur_time.wHour,
-				//	cur_time.wMinute,
-				//	cur_time.wSecond,
-				//	cur_time.wMilliseconds);
+				m_wstrCurrentTime.Format(_T("%02d/%02d/%02d-%02d:%02d:%02d:%03ld"),
+				cur_time.wYear,
+				cur_time.wMonth,
+				cur_time.wDay,
+				cur_time.wHour,
+				cur_time.wMinute,
+				cur_time.wSecond,
+				cur_time.wMilliseconds);
 
-				DEQUE_PRINT();
+				DEQUE_SORT();
 				Elevator_MOVE();
-				Elevator_Turn();
 			}
 			
 			else 
-			{
-				
+			{				
 				m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" 없습니다."));
 				m_listBoxMSG.SetCurSel(m_listBoxMSG.GetCount() - 1);
-
+				
 			}
 		}
-		break;
-
-		
+		break;		
 
 		case _TIMER_ELEVATOR_UP:
 		{
+				Elevator_Turn();
+
 				m_nElevator += 1;
 				m_ny1_pos -= 30;
 				
 				m_wstrElevator.Format(_T("%d"), m_nElevator);
 				m_stcSTDzElevator.SetWindowTextW(m_wstrElevator);
-				m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" 엘리베이터이동중 : ") + m_wstrElevator);
+				m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" 엘리베이터 ▲ ") + m_wstrElevator);
 				m_listBoxMSG.SetCurSel(m_listBoxMSG.GetCount() - 1);
+								
+				VFX_TANK stTANK;
+
+				stTANK = m_queVfxTANK.front();
+
+				CString wstrTXT;
+				wstrTXT.Format(_T("[%d][%d]"), stTANK._1_nIdxBEG, stTANK._2_nIdxEND);
+
 				
-				//m_Elevator_state = Elevator_state_UP;
-				  
 		}
 		break;
 
 		case _TIMER_ELEVATOR_DOWN:
 		{
+			Elevator_Turn();
+
 			m_nElevator -= 1;
 			m_ny1_pos += 30;
 
 			m_wstrElevator.Format(_T("%d"), m_nElevator);
 			m_stcSTDzElevator.SetWindowTextW(m_wstrElevator);
-			m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" 엘리베이터이동중.") + m_wstrElevator);
+			m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" 엘리베이터 ▼") + m_wstrElevator);
 			m_listBoxMSG.SetCurSel(m_listBoxMSG.GetCount() - 1);
-			//m_Elevator_state = Elevator_state_DOWN;
-			
+
+			VFX_TANK stTANK;
+			stTANK = m_queVfxTANK.front();
+
+			CString wstrTXT;
+			wstrTXT.Format(_T("[%d][%d]"), stTANK._1_nIdxBEG, stTANK._2_nIdxEND);
+						
 		}
 		break;
 
@@ -303,13 +314,10 @@ void CElevator3Dlg::OnTimer(UINT_PTR nIDEvent)
 
 		case _TIMER_ELEVATOR_CLOSE:
 		{
-
 			KillTimer(_TIMER_ELEVATOR_OPEN);
 			Elevator_Close(10, 10);
-
 		}
 		break;
-
 
 	}
 	CDialogEx::OnTimer(nIDEvent);
@@ -355,118 +363,82 @@ bool compare (int x, int y)
 	return x > y;
 }
 
-void CElevator3Dlg::DEQUE_PRINT()
+bool DestCompare(VFX_TANK a, VFX_TANK b)
 {
-	//for(iter= m_deque.begin(); iter!= m_deque.end(); iter++)
-	
-	while (!m_deque.empty())
-	{
-		// 목적지 층을 꺼냄
-		int nDestFloor = m_deque.front();
-		m_deque.pop_front();
+	if(a._1_nIdxBEG <a._2_nIdxEND)
+		return a._2_nIdxEND<b._2_nIdxEND;
 
-		// 목적지 층 처리
-		m_nDestFloor = nDestFloor;
-		if (m_nElevator > m_nDestFloor)
-		{
-			m_Elevator_state = Elevator_state_DOWN;
-			m_DownDeque.push_back(m_nDestFloor);
-		}
-		else if (m_nElevator < m_nDestFloor)
-		{
-			m_Elevator_state = Elevator_state_UP;
-			m_UpDeque.push_back(m_nDestFloor);
-		}
-		else
-		{
-			Elevator_STOP();
-		}
-
-		// 리스트 박스에 출력
-		CString wstrDeque;
-		wstrDeque.Format(_T("[%02d] %d"), m_deque.size() + 1, nDestFloor);
-		m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" ") + wstrDeque);
-		m_listBoxMSG.SetCurSel(m_listBoxMSG.GetCount() - 1);
-	}
-	
-	
-	
-
+	else if(a._1_nIdxBEG > a._2_nIdxEND)
+		return a._2_nIdxEND >b._2_nIdxEND;
 }
 
+void CElevator3Dlg::DEQUE_SORT()
+{
+	//for(iter= m_deque.begin(); iter!= m_deque.end(); iter++)
+	for (int i = 0; i < m_queVfxTANK.size(); i++)
+	{
+		CString wstrDest;
+		CString wstrCur;
+
+		sort(m_queVfxTANK.begin(), m_queVfxTANK.end(), DestCompare);
+
+	}
+	
+}
 
 
 void CElevator3Dlg::Elevator_MOVE()
 {
 	CPaintDC dc(this);
 	
-	//m_ny1_pos = 520 - ((m_nDeque - 1) * 30);
+	VFX_TANK stTANK;
+
+	stTANK = m_queVfxTANK.front();
+
+	CString wstrTXT;
+	wstrTXT.Format(_T("[%d][%d]"), stTANK._1_nIdxBEG, stTANK._2_nIdxEND );
+	//m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" ") + wstrTXT);
+	//m_listBoxMSG.SetCurSel(m_listBoxMSG.GetCount() - 1);
 	
-	if (m_nElevator > m_nDestFloor)
+	if (stTANK._2_nIdxEND < m_nElevator)
 	{
-		//m_Elevator_state = Elevator_state_DOWN;
 		KillTimer(_TIMER_ELEVATOR_UP);
 		SetTimer(_TIMER_ELEVATOR_DOWN, 1 * 1000, NULL);
 
 	}
-	else  if(m_nElevator < m_nDestFloor)
+	else  if(stTANK._2_nIdxEND > m_nElevator)
 	{
-		//m_Elevator_state = Elevator_state_UP;
 		KillTimer(_TIMER_ELEVATOR_DOWN);
 		SetTimer(_TIMER_ELEVATOR_UP, 1 * 1000, NULL);
+
 	}
-	else if (m_Elevator_state = Elevator_state_STOP)
+	else if (m_nElevator == stTANK._2_nIdxEND)
 	{
-		//m_Elevator_state = Elevator_state_STOP;
-		//KillTimer(_TIMER_ELEVATOR_UP);
-		//KillTimer(_TIMER_ELEVATOR_DOWN);
-		//Elevator_STOP();
+		Elevator_STOP();		
 	}
-	
 
 	InvalidateRect(CRect(00, 00, 1000, 1000));
 }
 
 
-
-
-
 void CElevator3Dlg::Elevator_STOP()
 {
 	CPaintDC dc(this);
-	
+
+	KillTimer(_TIMER_ELEVATOR_UP);
+	KillTimer(_TIMER_ELEVATOR_DOWN);
+
 	SetTimer(_TIMER_ELEVATOR_OPEN, 1, NULL);
 	SetTimer(_TIMER_ELEVATOR_CLOSE, 500, NULL);
 
 	m_listBoxMSG.AddString(m_wstrCurrentTime + _T(" 도착"));
 	m_listBoxMSG.SetCurSel(m_listBoxMSG.GetCount() - 1);
 
-	m_deque.pop_front();
+	//m_queVfxTANK.pop_front();
 
-	if (m_deque.empty())
-	{
-		KillTimer(_TIMER_ELEVATOR_UP);
-		KillTimer(_TIMER_ELEVATOR_DOWN);
-	}
-
-	//m_nElevator = m_nDestFloor;
+	DEQUE_POP();
 	
-	
-
-	//if(m_deque.at(0)==m_UpDeque.at(0))
-	//{
-	//	m_deque.pop_front();
-	//	m_UpDeque.pop_front();
-	//}
-	//else if (m_deque.at(0) == m_DownDeque.at(0))
-	//{
-	//	m_deque.pop_front();
-	//	m_DownDeque.pop_front();
-	//}
-
-	
-	
-	switch (m_nDestFloor) {
+	switch (m_nElevator) {
 
 	case 1:
 
@@ -559,7 +531,7 @@ void CElevator3Dlg::Elevator_STOP()
 		break;
 	}
 
-	//DEQUE_POP();
+	
 
 	InvalidateRect(CRect(00, 00, 1000, 1000));
 }
@@ -568,98 +540,69 @@ void CElevator3Dlg::Elevator_STOP()
 
 void CElevator3Dlg::Elevator_Turn()
 {
-	if (m_Elevator_state = Elevator_state_UP)
-	{
-		if (!m_UpDeque.empty() && m_nElevator < m_UpDeque.front())
-		{
-			SetTimer(_TIMER_ELEVATOR_UP, 1 * 1000, NULL);
-			//m_nElevator++;
-		}
-		else if (!m_DownDeque.empty() && m_nElevator < m_DownDeque.back())
-		{
-			SetTimer(_TIMER_ELEVATOR_UP, 1 * 1000, NULL);
-			//m_nElevator++;
-			//m_Elevator_state = Elevator_state_DOWN;
-		}
-		else
-		{
-			m_Elevator_state = Elevator_state_STOP;
 
-
-		}
-	}
-
-	else if (m_Elevator_state = Elevator_state_DOWN)
-	{
-		if (!m_DownDeque.empty() && m_nElevator > m_DownDeque.front())
-		{
-			SetTimer(_TIMER_ELEVATOR_DOWN, 1 * 1000, NULL);
-			//m_nElevator--;
-		}
-		else if (!m_UpDeque.empty() && m_nElevator > m_UpDeque.back())
-		{
-			SetTimer(_TIMER_ELEVATOR_DOWN, 1 * 1000, NULL);
-			//m_nElevator--;
-			//m_Elevator_state = Elevator_state_UP;
-		}
-		else
-		{
-			m_Elevator_state = Elevator_state_STOP;
-
-		}
-	}
-
-	if (m_nElevator > 14)
+	if (m_nElevator > 15)
 	{
 		KillTimer(_TIMER_ELEVATOR_UP);
 		SetTimer(_TIMER_ELEVATOR_DOWN, 1 * 1000, NULL);
 		
-
 	}
 	else if (m_nElevator == 1)
 	{
 		KillTimer(_TIMER_ELEVATOR_DOWN);
 		SetTimer(_TIMER_ELEVATOR_UP, 1 * 1000, NULL);
 		
-
 	}
 }
 
 void CElevator3Dlg::DEQUE_POP()
 {
-	m_deque.pop_front();
+	m_queVfxTANK.pop_front();
 
 }
 
 void CElevator3Dlg::OnBnClickedChkBtn1()
 {
-	Elevator_Turn();
-	m_nValue = 1;
-	m_deque.push_back(m_nValue);	
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 1;
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn2()
 {
-	Elevator_Turn();
-	m_nValue = 2;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 2;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn3()
 {
 
-	Elevator_Turn();
-	m_nValue = 3;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 3;
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 	
 }
 
@@ -667,121 +610,181 @@ void CElevator3Dlg::OnBnClickedChkBtn3()
 void CElevator3Dlg::OnBnClickedChkBtn4()
 {
 
-	Elevator_Turn();
-	m_nValue = 4;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 4;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn5()
 {
-	Elevator_Turn();
-	m_nValue = 5; 
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 5;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn6()
 {
-	Elevator_Turn();
-	m_nValue = 6; 
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 6;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn7()
 {
-	Elevator_Turn();
-	m_nValue = 7;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 7;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn8()
 {
-	Elevator_Turn();
-	m_nValue = 8;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 8;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn9()
 {
-	Elevator_Turn();
-	m_nValue = 9;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 9;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn10()
 {
-	Elevator_Turn();
-	m_nValue = 10;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 10;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+	
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn11()
 {
-	Elevator_Turn();
-	m_nValue = 11;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 11;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn12()
 {
-	Elevator_Turn();
-	m_nValue = 12;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 12;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn13()
 {
-	Elevator_Turn();
-	m_nValue = 13;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 13;
+
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn14()
 {
-	Elevator_Turn();
-	m_nValue = 14;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	m_nPozCURRENT = m_nElevator;
+
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 14;
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
 void CElevator3Dlg::OnBnClickedChkBtn15()
 {
-	Elevator_Turn();
-	m_nValue = 15;
-	m_deque.push_back(m_nValue);
-	DEQUE_PRINT();
-	//Elevator_MOVE();
+	
+	m_nPozCURRENT = m_nElevator;
+	
+	stVfx_TANK._1_nIdxBEG = m_nPozCURRENT;
+	stVfx_TANK._2_nIdxEND = 15;
+
+	m_queVfxTANK.push_back(stVfx_TANK);
+		
+	DEQUE_SORT();
+	Elevator_MOVE();
 }
 
 
